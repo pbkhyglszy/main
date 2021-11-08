@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class Referee {//裁判
-    int id,teamId;
-    String name,idNumber,phone;
+    int id;
+    int teamId;
+    String name;
+    String idNumber;
+    String phone;
 }

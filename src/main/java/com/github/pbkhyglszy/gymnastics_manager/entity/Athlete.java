@@ -4,6 +4,11 @@ import lombok.Data;
 
 @Data
 public class Athlete {
-    int id,age,gender,athleteId,teamId;
-    String name,idNumber;
+    int id;
+    int age;
+    int gender;
+    int athleteId;
+    int teamId;
+    String name;
+    String idNumber;
 }
