@@ -1,14 +1,16 @@
 package com.github.pbkhyglszy.gymnastics_manager.entity;
 
+import com.github.pbkhyglszy.gymnastics_manager.enums.Gender;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @Data
-public class Athlete {
-    int id;
+@EqualsAndHashCode(callSuper = true)
+public class Athlete extends TeamMember{
     int age;
-    int gender;
+    Gender gender;
     int athleteId;
-    int teamId;
-    String name;
-    String idNumber;
+    List<Competition> competitions;
 }

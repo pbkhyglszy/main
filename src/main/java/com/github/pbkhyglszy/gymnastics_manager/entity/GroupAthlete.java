@@ -3,8 +3,9 @@ package com.github.pbkhyglszy.gymnastics_manager.entity;
 import lombok.Data;
 
 @Data
-public class Group {//一组比赛
+public class GroupAthlete {
     int id;
-    int competitionId;
-    String groupName;
+    int order;
+    int groupId;
+    int athleteId;
 }

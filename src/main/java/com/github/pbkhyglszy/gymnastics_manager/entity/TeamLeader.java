@@ -1,12 +1,10 @@
 package com.github.pbkhyglszy.gymnastics_manager.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class TeamLeader {
-    int id;
-    int teamId;
-    String name;
-    String idNumber;
-    String phone;
+@EqualsAndHashCode(callSuper = true)
+public class TeamLeader extends TeamMember {
+
 }
