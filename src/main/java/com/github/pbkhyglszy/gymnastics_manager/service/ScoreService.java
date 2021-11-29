@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Service
 public class ScoreService {
@@ -38,7 +36,7 @@ public class ScoreService {
     }
 
     public List<RefereeScore> getRefereeScores(int groupId) {
-        return scoreMapper.getAllRS(groupId);
+        return scoreMapper.getAllRSByGroup(groupId);
     }
 
     @Transactional
@@ -68,6 +66,6 @@ public class ScoreService {
     }
 
     public List<FinalScore> getFinalScores(int groupId) {
-        return scoreMapper.getAllFS(groupId);
+        return scoreMapper.getAllFSByGroup(groupId);
     }
 }

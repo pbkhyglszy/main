@@ -18,9 +18,9 @@ public interface ScoreMapper {
 
     boolean getStatus(int groupId, int refereeId);//查询groupId，refereeId，返回RefereeScore Status
 
-    List<RefereeScore> getAllRS(int groupId);//查询groupId，返回所有的RefereeScore
+    List<RefereeScore> getAllRSByGroup(int groupId);//查询groupId，返回所有的RefereeScore
 
-    List<RefereeScore> getAllRS(List<Integer> ids);//查询groupId，返回所有的RefereeScore
+    List<RefereeScore> getAllRSByIds(List<Integer> ids);//TODO:查询groupId，返回所有的RefereeScore
 
     int update(RefereeScore refereeScore);//RefereeScore表，改
 
@@ -32,7 +32,7 @@ public interface ScoreMapper {
 
     int[] addAllFS(List<FinalScore> finalScores);//FinalScore表，增
 
-    List<FinalScore> getAllFS(int groupId);//查询groupId，返回所有的FinalScore
+    List<FinalScore> getAllFSByGroup(int groupId);//查询groupId，返回所有的FinalScore
     
-    List<FinalScore> getAllFS(List<Integer> ids);//查询groupId，返回所有的FinalScore
+    List<FinalScore> getAllFSByIds(List<Integer> ids);//TODO:查询groupId，返回所有的FinalScore
 }
