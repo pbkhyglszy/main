@@ -3,6 +3,7 @@ package com.github.pbkhyglszy.gymnastics_manager.mapper;
 import com.github.pbkhyglszy.gymnastics_manager.entity.FinalScore;
 import com.github.pbkhyglszy.gymnastics_manager.entity.RefereeScore;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface ScoreMapper {
 
     List<RefereeScore> getAllRSByGroup(int groupId);//查询groupId，返回所有的RefereeScore
 
-    List<RefereeScore> getAllRSByIds(List<Integer> ids);//TODO:查询groupId，返回所有的RefereeScore
+    List<RefereeScore> getAllRSByIds(List<Integer> ids);//查询groupId，返回所有的RefereeScore
 
     int update(RefereeScore refereeScore);//RefereeScore表，改
 
@@ -30,7 +31,7 @@ public interface ScoreMapper {
 
     double calculateFS(int groupId, int athleteId);//计算平均成绩
 
-    int[] addAllFS(List<FinalScore> finalScores);//FinalScore表，增
+    int addAllFS(List<FinalScore> finalScores);//FinalScore表，增
 
     List<FinalScore> getAllFSByGroup(int groupId);//查询groupId，返回所有的FinalScore
     

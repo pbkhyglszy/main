@@ -1,6 +1,6 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://121.36.198.221:3306/25?serverTimezone=GMT%2B8&useSSL=true
     username: 25
     password: WHUstu25
@@ -12,3 +12,6 @@ mybatis:
   configuration:
     #默认开启驼峰命名法，可以不用设置该属性
     map-underscore-to-camel-case: true
+    default-enum-type-handler: com.github.pbkhyglszy.gymnastics_manager.handler.MyEnumTypeHandler
+logging:
+  config: classpath:logback.xml

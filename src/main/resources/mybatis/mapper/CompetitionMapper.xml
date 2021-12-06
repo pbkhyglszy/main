@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.CompetitionMapper">
+
+    <insert id="addNewCompetition" useGeneratedKeys="true" keyProperty="id">
+        insert into competition (type, event_id, age_class_id)
+        values (#{type}, #{eventId}, #{ageClassId})
+    </insert>
+
+    <select id="getAll" resultType="Test">
+        select *
+        from test
+    </select>
+</mapper>

@@ -38,6 +38,23 @@
         where group_id = #{groupId}
     </select>
 
+    <select id="getAllRSByIds" resultType="RefereeScore">
+        select *
+        from referee_score
+        where
+        <choose>
+            <when test="list.size() > 0">
+                group_id in
+                <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                1 = 0
+            </otherwise>
+        </choose>
+    </select>
+
     <update id="update">
         update referee_score
         set score      = #{score},
@@ -57,5 +74,48 @@
                                      where group_id = #{groupId})
     </select>
 
+    <select id="getAllAthleteId" resultType="java.lang.Integer">
+        select athlete_id
+        from group_athlete
+        where group_id = #{groupId}
+    </select>
+
+    <select id="calculateFS" resultType="java.lang.Double">
+        select avg(score)
+        from referee_score
+        where group_id = #{groupId}
+          and athlete_id = #{athleteId}
+    </select>
+
+    <insert id="addAllFS" useGeneratedKeys="true" keyProperty="id">
+        insert into final_score (score, athlete_id, group_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.score}, #{item.athleteId}, #{item.groupId})
+        </foreach>
+    </insert>
+
+    <select id="getAllFSByGroup" resultType="FinalScore">
+        select *
+        from final_score
+        where group_id = #{groupId}
+    </select>
+
+    <select id="getAllFSByIds" resultType="FinalScore">
+        select *
+        from final_score
+        where
+        <choose>
+            <when test="list.size() > 0">
+                group_id in
+                <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                1 = 0
+            </otherwise>
+        </choose>
+    </select>
 
 </mapper>

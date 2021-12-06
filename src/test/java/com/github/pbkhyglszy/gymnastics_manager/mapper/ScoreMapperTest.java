@@ -1,5 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.mapper;
 
+import com.github.pbkhyglszy.gymnastics_manager.entity.FinalScore;
 import com.github.pbkhyglszy.gymnastics_manager.entity.RefereeScore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +34,6 @@ class ScoreMapperTest {
         scoreMapper.add(refereeScore);
         assertEquals(4, scoreMapper.getAllRSByGroup(1).size());
         assertEquals(9.5, scoreMapper.getAllRSByGroup(1).get(3).getScore());
-
     }
 
     @Test
@@ -58,6 +61,13 @@ class ScoreMapperTest {
 
     @Test
     void getAllRSByIds() {
+        List<Integer> ids = List.of(1,2);
+        List<RefereeScore> all = scoreMapper.getAllRSByIds(ids);
+        assertEquals(4, all.size());
+        assertEquals(9.2, all.get(3).getScore());
+
+        all = scoreMapper.getAllRSByIds(Collections.emptyList());
+        assertEquals(0, all.size());
     }
 
     @Test
@@ -90,14 +100,35 @@ class ScoreMapperTest {
 
     @Test
     void getAllAthleteId() {
+        assertEquals(2,scoreMapper.getAllAthleteId(1).length);
+        assertEquals(0,scoreMapper.getAllAthleteId(99).length);
     }
 
     @Test
-    void calculateFS() {
+        void calculateFS() {
+        assertEquals(8.966666666666667, scoreMapper.calculateFS(1,1));
     }
 
     @Test
     void addAllFS() {
+        List<FinalScore> fs = new java.util.ArrayList<>(Collections.emptyList());
+        FinalScore fs1 = new FinalScore();
+        fs1.setId(1);
+        fs1.setScore(9);
+        fs1.setAthleteId(1);
+        fs1.setGroupId(1);
+        FinalScore fs2 = new FinalScore();
+        fs2.setId(2);
+        fs2.setScore(8);
+        fs2.setAthleteId(2);
+        fs2.setGroupId(1);
+        fs.add(fs1);
+        fs.add(fs2);
+
+        scoreMapper.addAllFS(fs);
+        assertEquals(2, scoreMapper.getAllFSByGroup(1).size());
+        assertEquals(9, scoreMapper.getAllFSByGroup(1).get(0).getScore());
+        assertEquals(8, scoreMapper.getAllFSByGroup(1).get(1).getScore());
     }
 
     @Test

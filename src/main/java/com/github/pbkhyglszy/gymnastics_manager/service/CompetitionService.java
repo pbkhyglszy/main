@@ -24,6 +24,7 @@ public class CompetitionService {//录入比赛，增删改查
     }
 
 
+
     @SneakyThrows
     public int addCompetition(Competition competition) {
         return competitionMapper.addNewCompetition(competition);

@@ -52,7 +52,7 @@ public class ScoreService {
     }
 
     @Transactional
-    protected int[] calculateFinalScore(int groupId) {
+    protected int calculateFinalScore(int groupId) {
         int[] athleteIds = scoreMapper.getAllAthleteId(groupId);
         List<FinalScore> finalScores = new ArrayList<>();
         for (int athleteId : athleteIds) {
