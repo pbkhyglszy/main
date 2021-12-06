@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class FinalScore {
     int id;
     double score;

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.TeamMapper">
+    <resultMap id="TeamResultMap" type="Team">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="team_name" jdbcType="VARCHAR" property="teamName"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+    </resultMap>
+    <!--根据用户名密码查询用户信息-->
+    <!--application.yml 中通过 type-aliases-package 指定了实体类的为了，因此-->
+    <select id="getAll" resultType="Team">
+        select *
+        from team
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into team (team_name, account, password)
+        values (#{teamName}, #{account}, #{password})
+    </insert>
+
+    <delete id="delete">
+        delete
+        from team
+        where id = #{id}
+    </delete>
+
+    <update id="update">
+        update team
+        set team_name = #{teamName},
+            account   = #{account},
+            password  = #{password}
+        where id = #{id}
+    </update>
+</mapper>
