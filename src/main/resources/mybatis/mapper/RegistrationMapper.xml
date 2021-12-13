@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.RegistrationMapper">
+
+    <insert id="addAthlete" useGeneratedKeys="true" keyProperty="id">
+        insert into athlete(name, id_number, age, gender, athlete_id, team_id)
+        values (#{name}, #{idNumber}, #{age}, #{gender}, #{athleteId}, #{teamId})
+    </insert>
+
+    <insert id="addCoach" useGeneratedKeys="true" keyProperty="id">
+        insert into coach (name, id_number, gender, phone, team_id)
+        values (#{name}, #{idNumber}, #{gender}, #{phone}, #{teamId})
+    </insert>
+
+    <insert id="addReferee" useGeneratedKeys="true" keyProperty="id">
+        insert into referee (name, id_number, phone, team_id)
+        values (#{name}, #{idNumber}, #{phone}, #{teamId})
+    </insert>
+
+    <insert id="addTeamDoctor" useGeneratedKeys="true" keyProperty="id">
+        insert into team_doctor (name, id_number, phone, team_id)
+        values (#{name}, #{idNumber}, #{phone}, #{teamId})
+    </insert>
+
+    <insert id="addTeamLeader" useGeneratedKeys="true" keyProperty="id">
+        insert into team_leader (name, id_number, phone, team_id)
+        values (#{name}, #{idNumber}, #{phone}, #{teamId})
+    </insert>
+
+    <delete id="deleteAthlete">
+        delete
+        from athlete
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteCoach">
+        delete
+        from coach
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteReferee">
+        delete
+        from referee
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTeamDoctor">
+        delete
+        from team_doctor
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTeamLeader">
+        delete
+        from team_leader
+        where id = #{id}
+    </delete>
+
+    <update id="updateAthlete">
+        update athlete
+        set name = #{name},
+            id_number = #{idNumber},
+            age  = #{age},
+            gender = #{gender},
+            athlete_id = #{athleteId},
+            team_id = #{teamId}
+        where id = #{id}
+    </update>
+
+    <update id="updateCoach">
+        update coach
+        set name = #{name},
+            id_number = #{idNumber},
+            gender = #{gender},
+            phone = #{phone},
+            team_id = #{teamId}
+        where id = #{id}
+    </update>
+
+    <update id="updateReferee">
+        update referee
+        set name = #{name},
+            id_number = #{idNumber},
+            phone = #{phone},
+            team_id = #{teamId}
+        where id = #{id}
+    </update>
+
+    <update id="updateTeamDoctor">
+        update team_doctor
+        set name = #{name},
+            id_number = #{idNumber},
+            phone = #{phone},
+            team_id = #{teamId}
+        where id = #{id}
+    </update>
+
+    <update id="updateTeamLeader">
+        update team_leader
+        set name = #{name},
+            id_number = #{idNumber},
+            phone = #{phone},
+            team_id = #{teamId}
+        where id = #{id}
+    </update>
+
+    <select id="getAthlete" resultType="Athlete">
+        select *, 0 as 'type'
+        from athlete
+        where team_id = #{teamId}
+    </select>
+
+    <select id="getCoach" resultType="Coach">
+        select *, 1 as 'type'
+        from coach
+        where team_id = #{teamId}
+    </select>
+
+    <select id="getReferee" resultType="TeamMember">
+        select *, 2 as 'type'
+        from referee
+        where team_id = #{teamId}
+    </select>
+
+    <select id="getTeamDoctor" resultType="TeamMember">
+        select *, 3 as 'type'
+        from team_doctor
+        where team_id = #{teamId}
+    </select>
+
+    <select id="getTeamLeader" resultType="TeamMember">
+        select *, 4 as type
+        from team_leader
+        where team_id = #{teamId}
+    </select>
+
+</mapper>

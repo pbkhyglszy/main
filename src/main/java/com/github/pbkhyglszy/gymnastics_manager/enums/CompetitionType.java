@@ -1,7 +1,11 @@
 package com.github.pbkhyglszy.gymnastics_manager.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum CompetitionType {
+    @JsonProperty("qualification")
     QUALIFICATION(0),
+    @JsonProperty("final")
     FINAL(1),
     ;
 

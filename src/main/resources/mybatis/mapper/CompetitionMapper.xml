@@ -3,12 +3,33 @@
 <mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.CompetitionMapper">
 
     <insert id="addNewCompetition" useGeneratedKeys="true" keyProperty="id">
-        insert into competition (type, event_id, age_class_id)
-        values (#{type}, #{eventId}, #{ageClassId})
+        insert into competition (type, event_name, gender, age_class_name, min_age, max_age)
+        values (#{type}, #{eventName}, #{gender}, #{ageClassName}, #{minAge}, #{maxAge})
     </insert>
 
-    <select id="getAll" resultType="Test">
+    <delete id="deleteCompetitionById">
+        delete
+        from competition
+        where id = #{id}
+    </delete>
+
+    <update id="modifyCompetitionById">
+        update team
+        set team_name = #{teamName},
+            account   = #{account},
+            password  = #{password}
+        where id = #{id}
+    </update>
+
+    <select id="getCompetitionList" resultType="Competition">
         select *
-        from test
+        from competition
     </select>
+
+    <select id="getCompetitionById" resultType="Competition">
+        select *
+        from competition
+        where id = #{id}
+    </select>
+
 </mapper>

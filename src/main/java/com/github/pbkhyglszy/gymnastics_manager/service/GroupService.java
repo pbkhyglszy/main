@@ -1,9 +1,7 @@
 package com.github.pbkhyglszy.gymnastics_manager.service;
 
 import com.github.pbkhyglszy.gymnastics_manager.dto.GroupDTO;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Athlete;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Group;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Referee;
+import com.github.pbkhyglszy.gymnastics_manager.entity.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +11,7 @@ public class GroupService {//赛事编排，分组
         return Collections.emptyList();
     }
 
-    public List<Referee> getReferees(){
+    public List<TeamMember> getReferees(){
         return Collections.emptyList();
     }
 

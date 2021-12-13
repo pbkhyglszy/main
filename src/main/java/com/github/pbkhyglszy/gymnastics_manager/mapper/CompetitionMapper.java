@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface CompetitionMapper {
     //    List<Test> getAll();
+
     int addNewCompetition(Competition competition) throws SQLException;
 
     void deleteCompetitionById(int id) throws SQLException;
@@ -20,7 +21,7 @@ public interface CompetitionMapper {
     Competition getCompetitionById(int id);
 
     /**
-     根据传入的模式串对象决定筛选条件 若某个属性非NULL 则选择与该属性相同的所有Competition
+     Todo:根据传入的模式串对象决定筛选条件 若某个属性非NULL 则选择与该属性相同的所有Competition
      */
     List<Competition> getCompetitionByCondition(Competition pattern);
 }
