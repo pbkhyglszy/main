@@ -20,7 +20,7 @@ public interface CompetitionMapper {
     /**
      * Todo:根据传入的模式串对象决定筛选条件 若某个属性非NULL 则选择与该属性相同的所有Competition
      */
-    List<Competition> getCompetitionByCondition(Competition pattern);
+    List<Competition> getCompetitionsByCondition(Competition pattern);
 
     int addAgeClass(AgeClass ageClass);
     int deleteAgeClass(int id);

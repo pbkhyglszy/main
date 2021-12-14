@@ -41,7 +41,7 @@ public class CompetitionService {//录入比赛，增删改查
     }
 
     public List<Competition> getCompetitionsByCondition(Competition Pattern) {
-        return competitionMapper.getCompetitionByCondition(Pattern);
+        return competitionMapper.getCompetitionsByCondition(Pattern);
     }
 
     public int addAgeClass(AgeClass ageClass){
