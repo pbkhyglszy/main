@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface RegistrationMapper {
     int addAthlete(Athlete teamMember);
+    int addAthleteEvent(int athleteId, int eventId);
     int addCoach(Coach teamMember);
     int addReferee(TeamMember teamMember);
     int addTeamDoctor(TeamMember teamMember);
@@ -28,6 +29,7 @@ public interface RegistrationMapper {
     int updateTeamLeader(TeamMember teamMember);
 
     List<Athlete> getAthlete(int teamId);
+    int getAthleteId(Athlete teamMember);
     List<Coach> getCoach(int teamId);
     List<TeamMember> getReferee(int teamId);
     List<TeamMember> getTeamDoctor(int teamId);

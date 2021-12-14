@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.GroupMapper">
+    <select id="getAthletesByEvent" resultType="Athlete">
+        select *, 0 as 'type'
+        from athlete
+        where id = (select athlete_id
+                    from athlete_event
+                    where event_id = #{eventId})
+    </select>
+
+    <select id="getReferees" resultType="TeamMember">
+        select *, 2 as 'type'
+        from referee
+    </select>
+
+    <insert id="addGroup" useGeneratedKeys="true" keyProperty="id">
+        insert into `group` (competition_id, group_name)
+        values (#{competitionId}, #{groupName})
+    </insert>
+
+    <delete id="deleteGroup">
+        delete
+        from `group`
+        where id = #{groupId}
+    </delete>
+
+    <update id="updateGroup">
+        update `group`
+        set competition_id = #{competitionId},
+            group_name     = #{groupName}
+        where id = #{id}
+    </update>
+
+    <select id="getGroupsByCompetition" resultType="Group">
+        select *
+        from `group`
+        where competition_id = #{competitionId}
+    </select>
+
+
+
+    <insert id="addGroupAthlete" useGeneratedKeys="true" keyProperty="id">
+        insert into group_athlete (`order`, group_id, athlete_id)
+        values (#{order}, #{groupId}, #{athleteId})
+    </insert>
+
+    <delete id="deleteGroupAthlete">
+        delete
+        from group_athlete
+        where group_id = #{groupId}
+          and athlete_id = #{athleteId}
+    </delete>
+
+    <select id="getAthleteByGroup" resultType="Athlete">
+        select *, 0 as 'type'
+        from group_athlete
+        where group_id = #{groupId}
+    </select>
+
+
+
+    <insert id="addGroupReferee" useGeneratedKeys="true" keyProperty="id">
+        insert into group_referee (chief_referee, referee_id, group_id)
+        values (#{chiefReferee}, #{refereeId}, #{groupId})
+    </insert>
+
+    <delete id="deleteGroupReferee">
+        delete
+        from group_referee
+        where group_id = #{groupId}
+          and referee_id = #{refereeId}
+    </delete>
+
+    <select id="getRefereeByGroup" resultType="TeamMember">
+        select *, 2 as 'type'
+        from group_referee
+        where group_id = #{groupId}
+    </select>
+
+
+</mapper>

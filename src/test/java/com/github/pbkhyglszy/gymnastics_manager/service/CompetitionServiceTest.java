@@ -22,18 +22,7 @@ class CompetitionServiceTest {
     ObjectMapper objectMapper;
 
     @Test
-    public void getCompetitions() throws JsonProcessingException {
-        Competition competition = new Competition();
-        competition.setId(1);
-        competition.setEventName("单杠");
-        competition.setGender(Gender.MALE);
-        competition.setAgeClassName("7-8");
-        competition.setMinAge(7);
-        competition.setMaxAge(8);
-        competition.setType(CompetitionType.QUALIFICATION);
-
-        String s = objectMapper.writeValueAsString(competition);
-
+    public void getCompetitions() {
 
     }
 }

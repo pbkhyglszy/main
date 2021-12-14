@@ -16,5 +16,5 @@ public class Athlete extends TeamMember {
     int age;
     Gender gender;
     int athleteId;
-    List<Competition> competitions;
+    int[] eventIds;
 }

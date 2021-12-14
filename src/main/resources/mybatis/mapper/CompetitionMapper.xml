@@ -3,8 +3,8 @@
 <mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.CompetitionMapper">
 
     <insert id="addNewCompetition" useGeneratedKeys="true" keyProperty="id">
-        insert into competition (type, event_name, gender, age_class_name, min_age, max_age)
-        values (#{type}, #{eventName}, #{gender}, #{ageClassName}, #{minAge}, #{maxAge})
+        insert into competition (type, age_class_id, event_id)
+        values (#{type}, #{ageClassId}, #{eventId})
     </insert>
 
     <delete id="deleteCompetitionById">
@@ -14,10 +14,10 @@
     </delete>
 
     <update id="modifyCompetitionById">
-        update team
-        set team_name = #{teamName},
-            account   = #{account},
-            password  = #{password}
+        update competition
+        set type = #{type},
+            age_class_id   = #{ageClassId},
+            event_id  = #{eventId}
         where id = #{id}
     </update>
 
@@ -32,4 +32,54 @@
         where id = #{id}
     </select>
 
+
+
+    <insert id="addAgeClass" useGeneratedKeys="true" keyProperty="id">
+        insert into competition_age_class (age_class_name, min_age, max_age)
+        values (#{ageClassName}, #{minAge}, #{maxAge})
+    </insert>
+
+    <delete id="deleteAgeClass">
+        delete
+        from competition_age_class
+        where id = #{id}
+    </delete>
+
+    <update id="updateAgeClass">
+        update competition_age_class
+        set age_class_name = #{ageClassName},
+            min_age   = #{minAge},
+            max_age  = #{maxAge}
+        where id = #{id}
+    </update>
+
+    <select id="getAllAgeClasses" resultType="AgeClass">
+        select *
+        from competition_age_class
+    </select>
+
+
+
+    <insert id="addEvent" useGeneratedKeys="true" keyProperty="id">
+        insert into competition_event (event_name, gender)
+        values (#{eventName}, #{gender})
+    </insert>
+
+    <delete id="deleteEvent">
+        delete
+        from competition_event
+        where id = #{id}
+    </delete>
+
+    <update id="updateEvent">
+        update competition_event
+        set event_name = #{eventName},
+            gender   = #{gender}
+        where id = #{id}
+    </update>
+
+    <select id="getAllEvents" resultType="Event">
+        select *
+        from competition_event
+    </select>
 </mapper>

@@ -12,14 +12,21 @@ import java.util.List;
 
 public class RegistrationService {//代表队报名，增删改查
     @Autowired
-    public RegistrationMapper registrationMapper;
+    private RegistrationMapper registrationMapper;
 
     public int addTeamMember(List<TeamMember> teamMembers) {
         for (TeamMember teamMember : teamMembers
         ) {
             switch (teamMember.getType()) {
                 case ATHLETE:
-                    return registrationMapper.addAthlete((Athlete) teamMember);
+                    Athlete athlete = (Athlete) teamMember;
+                    int result = registrationMapper.addAthlete(athlete);
+                    int i = registrationMapper.getAthleteId(athlete);
+                    for (int eventId:athlete.getEventIds()
+                         ) {
+                        registrationMapper.addAthleteEvent(i, eventId);
+                    }
+                    return result;
                 case COACH:
                     return registrationMapper.addCoach((Coach) teamMember);
                 case REFEREE:

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class GroupDTO {
-    List<GroupAthlete> groupAthletes;
-    List<GroupReferee> groupReferees;
-    Group group;
+    int[] athleteIds;
+    int[] refereeIds;
+    int groupId;
 }
