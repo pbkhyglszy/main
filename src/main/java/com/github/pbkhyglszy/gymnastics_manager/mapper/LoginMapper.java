@@ -12,4 +12,11 @@ public interface LoginMapper {
     void setPassword(int id, String password);
 
     String getPassword(int id);
+
+    /**
+     *
+     * @param username 要查找的用户名
+     * @return 用户名对应的Id 或Null 若未查找到对应用户
+     */
+    Integer getIdByUsername(String username);
 }
