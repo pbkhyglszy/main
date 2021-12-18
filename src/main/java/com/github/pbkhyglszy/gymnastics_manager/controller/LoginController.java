@@ -3,6 +3,7 @@ package com.github.pbkhyglszy.gymnastics_manager.controller;
 import com.github.pbkhyglszy.gymnastics_manager.entity.JwtUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.User;
 import com.github.pbkhyglszy.gymnastics_manager.service.LoginService;
+import com.github.pbkhyglszy.gymnastics_manager.service.UserService;
 import com.github.pbkhyglszy.gymnastics_manager.vo.R;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,6 +23,9 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    UserService userService;
+
     String key = "ThisIsASecretKey";
     SecretKey secretKey = new SecretKeySpec(key.getBytes(), SignatureAlgorithm.HS256.getJcaName());
 
@@ -36,9 +40,14 @@ public class LoginController {
         {
             HashMap<String, Object> data = new HashMap<>();
             data.put("userName", user.getUsername());
-
+            data.put("permission",userService.getPermission(userId));
             return R.ok(JwtUtils.createToken(data));
         }
         return R.error("用户名或密码错误", 1);
+    }
+
+    public int validateToken(String Token)
+    {
+        return JwtUtils.verifyToken(Token);
     }
 }

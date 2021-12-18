@@ -20,13 +20,15 @@ public class GroupService {
         return groupMapper.getReferees();
     }
 
-    public int addGroup(Group group){
+    public int addGroup(Group group) {
         return addGroup(group);
     }
-    public int deleteGroup(int groupId){
+
+    public int deleteGroup(int groupId) {
         return deleteGroup(groupId);
     }
-    public int updateGroup(Group group){
+
+    public int updateGroup(Group group) {
         return updateGroup(group);
     }
 
@@ -34,50 +36,49 @@ public class GroupService {
         return groupMapper.getGroupsByCompetition(competitionId);
     }
 
-    public int addAthletesToGroup(List<GroupAthlete> groupAthletes){
+    public int addAthletesToGroup(List<GroupAthlete> groupAthletes) {
         int result = 0;
-        for (GroupAthlete g:groupAthletes
-             ) {
+        for (GroupAthlete g : groupAthletes
+        ) {
             result += groupMapper.addGroupAthlete(g);
         }
         return result;
     }
 
-    public int removeAthletesFromGroup(List<GroupAthlete> groupAthletes){
+    public int removeAthletesFromGroup(List<GroupAthlete> groupAthletes) {
         int result = 0;
-        for (GroupAthlete g:groupAthletes
+        for (GroupAthlete g : groupAthletes
         ) {
             result += groupMapper.deleteGroupAthlete(g.getGroupId(), g.getAthleteId());
         }
         return result;
     }
 
-    public List<Athlete> getAthletesByGroup(int groupId){
+    public List<Athlete> getAthletesByGroup(int groupId) {
         return groupMapper.getAthleteByGroup(groupId);
     }
 
-    public int addRefereesToGroup(List<GroupReferee> groupReferees){
+    public int addRefereesToGroup(List<GroupReferee> groupReferees) {
         int result = 0;
-        for (GroupReferee g:groupReferees
+        for (GroupReferee g : groupReferees
         ) {
             result += groupMapper.addGroupReferee(g);
         }
         return result;
     }
 
-    public int removeRefereesFromGroup(List<GroupReferee> groupReferees){
+    public int removeRefereesFromGroup(List<GroupReferee> groupReferees) {
         int result = 0;
-        for (GroupReferee g:groupReferees
+        for (GroupReferee g : groupReferees
         ) {
             result += groupMapper.deleteGroupReferee(g.getGroupId(), g.getRefereeId());
         }
         return result;
     }
 
-    public List<TeamMember> getRefereesByGroup(int groupId){
+    public List<TeamMember> getRefereesByGroup(int groupId) {
         return groupMapper.getRefereeByGroup(groupId);
     }
-
 
 
 }
