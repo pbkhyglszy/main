@@ -40,7 +40,7 @@ public class TeamService {//设置代表队名称、账号和缺省密码，增�
                 .id(team.getUserId())
                 .name(team.getName())
                 .userName(team.getUserName())
-                .password(team.getPassword())
+                .password(loginService.encodePassword(team.getPassword()))
                 .permission(2)
                 .profession(MemberType.TEAM_LEADER)
                 .build();
