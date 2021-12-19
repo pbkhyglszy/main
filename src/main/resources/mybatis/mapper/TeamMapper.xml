@@ -27,7 +27,7 @@
 
     <update id="update">
         update team
-        set team_name = #{name}
+        set team_name = #{teamName}
         where id = #{id}
     </update>
 
