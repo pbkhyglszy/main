@@ -3,6 +3,7 @@ package com.github.pbkhyglszy.gymnastics_manager.service;
 import com.github.pbkhyglszy.gymnastics_manager.entity.User;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.LoginMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -11,6 +12,7 @@ import java.util.Random;
 
 @Service
 public class LoginService {
+    @Autowired
     LoginMapper loginMapper;
     String salt = "ThisIsASalt";
     Base64.Encoder b64Encoder = Base64.getEncoder();

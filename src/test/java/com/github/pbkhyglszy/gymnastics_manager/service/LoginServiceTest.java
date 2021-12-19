@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional
-@Rollback
 class LoginServiceTest {
 
     @Autowired
@@ -26,6 +24,6 @@ class LoginServiceTest {
 
     @Test
     void generateUser() {
-        loginService.generateUser(new User("pb", "12345678",0 , MemberType.TEAM_LEADER,"pb"));
+        loginService.generateUser(new User(1, "pb","12345678",0 , MemberType.TEAM_LEADER,"pb"));
     }
 }
