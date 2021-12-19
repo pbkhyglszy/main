@@ -26,13 +26,21 @@ public class RegistrationService {//代表队报名，增删改查
                     //int i = registrationMapper.getAthleteId(athlete);
                     for (int eventId : athlete.getEventIds()
                     ) {
-                        registrationMapper.addAthleteEvent(athlete.getId(), eventId);
+                        AthleteEvent athleteEvent = AthleteEvent.builder()
+                                .athleteId(athlete.getId())
+                                .eventId(eventId)
+                                .build();
+                        registrationMapper.addAthleteEvent(athleteEvent);
                     }
                     List<AgeClass> list = registrationMapper.getAllAgeClass();
-                    for (AgeClass ageClass:list
-                         ) {
-                        if (athlete.getAge()>= ageClass.getMinAge() && athlete.getAge() <=ageClass.getMaxAge() )
-                            registrationMapper.addAthleteAC(athlete.getId(), ageClass.getId());
+                    for (AgeClass ageClass : list
+                    ) {
+                        AthleteAgeClass athleteAgeClass = AthleteAgeClass.builder()
+                                .athleteId(athlete.getId())
+                                .ageClassId(ageClass.getId())
+                                .build();
+                        if (athlete.getAge() >= ageClass.getMinAge() && athlete.getAge() <= ageClass.getMaxAge())
+                            registrationMapper.addAthleteAC(athleteAgeClass);
                     }
                     return result;
                 case COACH:
@@ -84,14 +92,22 @@ public class RegistrationService {//代表队报名，增删改查
                 registrationMapper.deleteAthleteEvent(athlete.getId());
                 for (int eventId : athlete.getEventIds()
                 ) {
-                    registrationMapper.addAthleteEvent(athlete.getId(), eventId);
+                    AthleteEvent athleteEvent = AthleteEvent.builder()
+                            .athleteId(athlete.getId())
+                            .eventId(eventId)
+                            .build();
+                    registrationMapper.addAthleteEvent(athleteEvent);
                 }
                 registrationMapper.deleteAthleteAC(athlete.getId());
                 List<AgeClass> list = registrationMapper.getAllAgeClass();
-                for (AgeClass ageClass:list
+                for (AgeClass ageClass : list
                 ) {
-                    if (athlete.getAge()>= ageClass.getMinAge() && athlete.getAge() <=ageClass.getMaxAge() )
-                        registrationMapper.addAthleteAC(athlete.getId(), ageClass.getId());
+                    AthleteAgeClass athleteAgeClass = AthleteAgeClass.builder()
+                            .athleteId(athlete.getId())
+                            .ageClassId(ageClass.getId())
+                            .build();
+                    if (athlete.getAge() >= ageClass.getMinAge() && athlete.getAge() <= ageClass.getMaxAge())
+                        registrationMapper.addAthleteAC(athleteAgeClass);
                 }
                 return registrationMapper.updateAthlete(teamMember);
             case COACH:
@@ -104,7 +120,7 @@ public class RegistrationService {//代表队报名，增删改查
                         .permission(3)
                         .profession(MemberType.TEAM_DOCTOR)
                         .build();
-                if(teamMember.getPassword() == null)
+                if (teamMember.getPassword() == null)
                     loginService.loginMapper.updateUser(user);
                 else
                     loginService.loginMapper.updateUserPassword(user);

@@ -1,9 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.mapper;
 
-import com.github.pbkhyglszy.gymnastics_manager.entity.AgeClass;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Athlete;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Coach;
-import com.github.pbkhyglszy.gymnastics_manager.entity.TeamMember;
+import com.github.pbkhyglszy.gymnastics_manager.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,8 +8,8 @@ import java.util.List;
 @Mapper
 public interface RegistrationMapper {
     int addAthlete(Athlete teamMember);
-    void addAthleteEvent(int athleteId, int eventId);
-    void addAthleteAC(int athleteId, int ageClassId);
+    void addAthleteEvent(AthleteEvent athleteEvent);
+    void addAthleteAC(AthleteAgeClass athleteAgeClass);
     int addCoach(Coach teamMember);
     int addReferee(TeamMember teamMember);
     int addTeamDoctor(TeamMember teamMember);

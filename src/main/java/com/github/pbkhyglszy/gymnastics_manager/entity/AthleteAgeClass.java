@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AthleteEvent {
+public class AthleteAgeClass {
     int id;
     int athleteId;
-    int eventId;
+    int ageClassId;
 }
