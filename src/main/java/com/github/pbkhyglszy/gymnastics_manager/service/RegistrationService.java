@@ -103,7 +103,10 @@ public class RegistrationService {//代表队报名，增删改查
                         .permission(3)
                         .profession(MemberType.TEAM_DOCTOR)
                         .build();
-                loginService.loginMapper.updateUser(user);
+                if(teamMember.getPassword() == null)
+                    loginService.loginMapper.updateUser(user);
+                else
+                    loginService.loginMapper.updateUserPassword(user);
                 return registrationMapper.updateReferee(teamMember);
             case TEAM_DOCTOR:
                 return registrationMapper.updateTeamDoctor(teamMember);
