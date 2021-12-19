@@ -5,6 +5,7 @@ import lombok.Data;
 public class Team {//代表队
 
     int id;
+    int userId;
     String teamName;
     String account;
     String password;

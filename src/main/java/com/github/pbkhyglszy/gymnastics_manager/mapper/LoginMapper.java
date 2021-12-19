@@ -11,7 +11,7 @@ public interface LoginMapper {
      * @param id id of the user to operate
      * @param password the encoded password, see LoginService.java
      */
-    void setPassword(int id, String password);
+    int setPassword(int id, String password);
 
     String getPassword(int id);
 
@@ -26,5 +26,9 @@ public interface LoginMapper {
      * 将信息直接插入 User表
      */
     //TODO:Mapper
-    void createUser(User user);
+    int createUser(User user);
+
+    int deleteUser(int userId);
+
+    int updateUser(User user);
 }

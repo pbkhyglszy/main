@@ -23,4 +23,18 @@
         insert into user (username, password, permission, profession)
         values (#{username}, #{password}, #{permission}, #{profession})
     </insert>
+
+    <delete id="deleteUser">
+        delete
+        from user
+        where id = #{userId}
+    </delete>
+
+    <update id="updateUser">
+        update user
+        set username = #{username},
+            password = #{password},
+            name     = #{name}
+        where id = #{userId}
+    </update>
 </mapper>

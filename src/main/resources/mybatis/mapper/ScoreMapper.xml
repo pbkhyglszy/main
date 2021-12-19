@@ -99,6 +99,7 @@
         select *
         from final_score
         where group_id = #{groupId}
+        order by score desc
     </select>
 
     <select id="getAllFSByIds" resultType="FinalScore">
@@ -116,6 +117,15 @@
                 1 = 0
             </otherwise>
         </choose>
+    </select>
+
+    <select id="getAllFSByCompetition" resultType="FinalScore">
+        select *
+        from final_score
+        where group_id = (select id
+                          from `group`
+                          where competition_id = #{competitionId})
+        order by score desc
     </select>
 
 </mapper>

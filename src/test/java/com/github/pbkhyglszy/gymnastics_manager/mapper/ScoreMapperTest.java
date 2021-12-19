@@ -138,4 +138,9 @@ class ScoreMapperTest {
     @Test
     void getAllFSByIds() {
     }
+
+    @Test
+    void getAllFSByCompetition() {
+
+    }
 }

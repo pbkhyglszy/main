@@ -93,7 +93,16 @@ public class ScoreService {
         return scoreMapper.addAllFS(finalScores);
     }
 
-    public List<FinalScore> getFinalScores(int groupId) {
+    /**
+     *
+     * @param groupId 分组id
+     * @return 按组给出最终成绩表
+     */
+    public List<FinalScore> getAllFSByGroup(int groupId) {
         return scoreMapper.getAllFSByGroup(groupId);
+    }
+
+    public List<FinalScore> getAllFSByCompetition(int competitionId){
+        return scoreMapper.getAllFSByCompetition(competitionId);
     }
 }

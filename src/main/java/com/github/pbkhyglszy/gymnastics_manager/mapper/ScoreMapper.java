@@ -36,4 +36,6 @@ public interface ScoreMapper {
     List<FinalScore> getAllFSByGroup(int groupId);//查询groupId，返回所有的FinalScore
     
     List<FinalScore> getAllFSByIds(List<Integer> ids);//TODO:查询groupId，返回所有的FinalScore
+
+    List<FinalScore> getAllFSByCompetition(int competitionId);
 }

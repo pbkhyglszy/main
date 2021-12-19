@@ -15,8 +15,8 @@
     </select>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        insert into team (team_name, account, password)
-        values (#{teamName}, #{account}, #{password})
+        insert into team (team_name, account, password, user_id)
+        values (#{teamName}, #{account}, #{password}, #{userId})
     </insert>
 
     <delete id="delete">
@@ -32,4 +32,10 @@
             password  = #{password}
         where id = #{id}
     </update>
+
+    <select id="getUserId" resultType="java.lang.Integer">
+        select user_id
+        from team
+        where id = #{teamId}
+    </select>
 </mapper>

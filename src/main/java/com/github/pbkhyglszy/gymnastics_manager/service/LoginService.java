@@ -23,8 +23,8 @@ public class LoginService {
         return b64Encoder.encodeToString(token);
     }
 
-    public void setPassword(int id, String password) {
-        loginMapper.setPassword(id, DigestUtils.md5DigestAsHex((password + salt).getBytes()));
+    public int setPassword(int id, String password) {
+        return loginMapper.setPassword(id, DigestUtils.md5DigestAsHex((password + salt).getBytes()));
     }
 
     public boolean validatePassword(int id, String password) {
@@ -45,9 +45,9 @@ public class LoginService {
         return loginMapper.getIdByUsername(username);
     }
 
-    public void generateUser(User user)
+    public int generateUser(User user)
     {
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + salt).getBytes()));
-        loginMapper.createUser(user);
+        return loginMapper.createUser(user);
     }
 }

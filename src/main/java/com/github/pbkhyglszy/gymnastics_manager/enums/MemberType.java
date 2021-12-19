@@ -3,6 +3,8 @@ package com.github.pbkhyglszy.gymnastics_manager.enums;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum MemberType {
+    @JsonProperty("admin")
+    ADMIN(-1),
     @JsonProperty("athlete")
     ATHLETE(0),
     @JsonProperty("coach")

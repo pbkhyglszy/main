@@ -31,4 +31,7 @@ public class TeamMember {
     String idNumber;
     String phone;
     MemberType type;
+    int userId;
+    String username;
+    String password;
 }

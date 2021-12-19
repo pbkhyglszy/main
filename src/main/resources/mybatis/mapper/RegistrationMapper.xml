@@ -13,8 +13,8 @@
     </insert>
 
     <insert id="addReferee" useGeneratedKeys="true" keyProperty="id">
-        insert into referee (name, id_number, phone, team_id)
-        values (#{name}, #{idNumber}, #{phone}, #{teamId})
+        insert into referee (name, id_number, phone, team_id, user_id)
+        values (#{name}, #{idNumber}, #{phone}, #{teamId}, #{userId})
     </insert>
 
     <insert id="addTeamDoctor" useGeneratedKeys="true" keyProperty="id">
@@ -141,14 +141,10 @@
         values (#{athlete_id}, #{event_id})
     </insert>
 
-    <select id="getAthleteId" resultType="java.lang.Integer">
-        select id
-        from athlete
-        where name = #{name}
-          and id_number = #{idNumber}
-          and age = #{age}
-          and gender = #{gender}
-          and team_id = #{teamId}
+    <select id="getUserId" resultType="java.lang.Integer">
+        select user_id
+        from referee
+        where id = #{refereeId}
     </select>
 
 </mapper>
