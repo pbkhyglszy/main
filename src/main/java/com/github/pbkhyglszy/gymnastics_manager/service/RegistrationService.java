@@ -141,7 +141,7 @@ public class RegistrationService {//代表队报名，增删改查
              ) {
             a.setEventIds(registrationMapper.getEventIdsByAthlete(a.getId()));
         }
-        teamMembers.addAll(registrationMapper.getAthlete(teamId));
+        teamMembers.addAll(athletes);
 
         teamMembers.addAll(registrationMapper.getCoach(teamId));
 
