@@ -48,7 +48,7 @@ public class RegistrationService {//代表队报名，增删改查
                 case REFEREE:
                     User user = User.builder()
                             .name(teamMember.getName())
-                            .userName(teamMember.getUsername())
+                            .userName(teamMember.getUserName())
                             .password(teamMember.getPassword())
                             .permission(3)
                             .profession(MemberType.TEAM_DOCTOR)
@@ -115,7 +115,7 @@ public class RegistrationService {//代表队报名，增删改查
             case REFEREE:
                 User user = User.builder()
                         .name(teamMember.getName())
-                        .userName(teamMember.getUsername())
+                        .userName(teamMember.getUserName())
                         .password(loginService.encodePassword(teamMember.getPassword()))
                         .permission(3)
                         .profession(MemberType.TEAM_DOCTOR)

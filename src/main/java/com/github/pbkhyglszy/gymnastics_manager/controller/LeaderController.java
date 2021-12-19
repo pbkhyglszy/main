@@ -65,6 +65,7 @@ public class LeaderController {
             try {
                 int id = (int) JwtUtils.parseToken(token.substring("Bearer ".length())).get("userId");
                 Team team = teamService.getTeamByUserId(id);
+                int teamId=team.getId();
                 if (!(team.getId() == teamDetail.getId())) return R.error("wrongId", 1);
                 team.setName(teamDetail.getName());
                 teamService.updateTeam(team);
@@ -80,6 +81,14 @@ public class LeaderController {
                 );
                 int i = oldMembers.size() - 1;
                 int j = newMembers.size() - 1;
+                for (TeamMember it:oldMembers
+                     ) {
+                    it.setTeamId(teamId);
+                }
+                for (TeamMember it:newMembers
+                ) {
+                    it.setTeamId(teamId);
+                }
                 while (i > -1 && j > -1) {
                     if (oldMembers.get(i).equals(newMembers.get(j))) {
                         i--;
