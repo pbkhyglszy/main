@@ -37,4 +37,10 @@
         from team
         where id = #{teamId}
     </select>
+
+    <select id="getTeamById" resultType="Team">
+        select *
+        from team
+        where id = #{teamId}
+    </select>
 </mapper>

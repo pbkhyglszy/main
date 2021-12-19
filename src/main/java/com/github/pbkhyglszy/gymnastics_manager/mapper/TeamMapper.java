@@ -12,4 +12,5 @@ public interface TeamMapper {
     int delete(int teamId);//删
     int update(Team team);//改
     int getUserId(int teamId);
+    Team getTeamById(int teamId);
 }

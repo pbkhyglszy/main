@@ -55,4 +55,8 @@ public class TeamService {//设置代表队名称、账号和缺省密码，增�
         return teamMapper.getAll();
     }
 
+    public Team getTeamById(int teamId){
+        return teamMapper.getTeamById(teamId);
+    }
+
 }
