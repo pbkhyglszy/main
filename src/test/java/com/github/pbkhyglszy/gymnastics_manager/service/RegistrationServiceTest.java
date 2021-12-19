@@ -8,6 +8,7 @@ import com.github.pbkhyglszy.gymnastics_manager.entity.TeamMember;
 import com.github.pbkhyglszy.gymnastics_manager.enums.Gender;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.GroupMapper;
+import com.github.pbkhyglszy.gymnastics_manager.mapper.RegistrationMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +29,8 @@ class RegistrationServiceTest {
     ObjectMapper objectMapper;
     @Autowired
     GroupMapper groupMapper;
-    RegistrationService registrationService = new RegistrationService();
+    @Autowired
+    RegistrationService registrationService;
 
     @Test
     public void testObjectMapper() throws JsonProcessingException {

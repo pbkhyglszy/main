@@ -6,10 +6,12 @@ import com.github.pbkhyglszy.gymnastics_manager.entity.TeamMember;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.RegistrationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class RegistrationService {//代表队报名，增删改查
     @Autowired
     private RegistrationMapper registrationMapper;
