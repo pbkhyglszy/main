@@ -136,6 +136,11 @@ public class RegistrationService {//代表队报名，增删改查
     public List<TeamMember> getTeamMembers(int teamId) {
         List<TeamMember> teamMembers = new java.util.ArrayList<>(Collections.emptyList());
 
+        List<Athlete> athletes = registrationMapper.getAthlete(teamId);
+        for (Athlete a:athletes
+             ) {
+            a.setEventIds(registrationMapper.getEventIdsByAthlete(a.getId()));
+        }
         teamMembers.addAll(registrationMapper.getAthlete(teamId));
 
         teamMembers.addAll(registrationMapper.getCoach(teamId));

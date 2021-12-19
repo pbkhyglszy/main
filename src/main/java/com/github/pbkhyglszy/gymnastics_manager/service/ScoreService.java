@@ -105,4 +105,5 @@ public class ScoreService {
     public List<FinalScore> getAllFSByCompetition(int competitionId){
         return scoreMapper.getAllFSByCompetition(competitionId);
     }
+
 }

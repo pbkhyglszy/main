@@ -30,6 +30,7 @@ public interface RegistrationMapper {
     int updateTeamLeader(TeamMember teamMember);
 
     List<Athlete> getAthlete(int teamId);
+    int[] getEventIdsByAthlete(int athleteId);
     List<Coach> getCoach(int teamId);
     List<TeamMember> getReferee(int teamId);
     int getUserId(int refereeId);

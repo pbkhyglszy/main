@@ -1,6 +1,7 @@
 package com.github.pbkhyglszy.gymnastics_manager.mapper;
 
 import com.github.pbkhyglszy.gymnastics_manager.entity.Athlete;
+import com.github.pbkhyglszy.gymnastics_manager.entity.AthleteEvent;
 import com.github.pbkhyglszy.gymnastics_manager.enums.Gender;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @Transactional
 @Rollback
@@ -81,5 +83,20 @@ class RegistrationMapperTest {
 
     @Test
     void getTeamLeader() {
+    }
+
+    @Test
+    void getEventIdsByAthlete() {
+        AthleteEvent athleteEvent1 = AthleteEvent.builder()
+                .athleteId(28)
+                .eventId(2)
+                .build();
+        AthleteEvent athleteEvent2 = AthleteEvent.builder()
+                .athleteId(28)
+                .eventId(3)
+                .build();
+        registrationMapper.addAthleteEvent(athleteEvent1);
+        registrationMapper.addAthleteEvent(athleteEvent2);
+        assertEquals(5, registrationMapper.getEventIdsByAthlete(28).length);
     }
 }
