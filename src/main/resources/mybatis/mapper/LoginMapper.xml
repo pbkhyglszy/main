@@ -33,6 +33,13 @@
     <update id="updateUser">
         update user
         set username = #{userName},
+            name     = #{name}
+        where id = #{userId}
+    </update>
+
+    <update id="updateUserPassword">
+        update user
+        set username = #{userName},
             password = #{password},
             name     = #{name}
         where id = #{userId}

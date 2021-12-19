@@ -31,4 +31,6 @@ public interface LoginMapper {
     int deleteUser(int userId);
 
     int updateUser(User user);
+
+    int updateUserPassword(User user);
 }

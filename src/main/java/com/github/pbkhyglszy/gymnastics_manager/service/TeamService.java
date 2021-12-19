@@ -44,7 +44,10 @@ public class TeamService {//设置代表队名称、账号和缺省密码，增�
                 .permission(2)
                 .profession(MemberType.TEAM_LEADER)
                 .build();
-        loginService.loginMapper.updateUser(user);
+        if(team.getPassword() == null)
+            loginService.loginMapper.updateUser(user);
+        else
+            loginService.loginMapper.updateUserPassword(user);
         return teamMapper.update(team);
     }
 
