@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AgeClass {
     int id;
-    String ageClassName;
+    String name;
     int minAge;
     int maxAge;
 }
