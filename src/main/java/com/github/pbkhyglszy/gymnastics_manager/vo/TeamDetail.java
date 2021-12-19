@@ -17,7 +17,7 @@ import java.util.List;
 public class TeamDetail {
     int id;
     String name;
-    List<TeamMember> teamMembers;
+    List<TeamMember> members;
 
     public TeamDetail(Team team) {
         id=team.getId();

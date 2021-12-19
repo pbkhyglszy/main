@@ -44,32 +44,32 @@ public class LeaderController {
         });
     }
 
-    @GetMapping("/team-detail/")
+    @GetMapping("/team-detail")
     public R<?> getTeamDetail(@RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 2, () -> {
             try {
-                Team team = teamService.getTeamByUserId((int) JwtUtils.parseToken(token).get("userId"));
+                Team team = teamService.getTeamByUserId((int) JwtUtils.parseToken(token.substring("Bearer ".length())).get("userId"));
                 TeamDetail r = new TeamDetail(team);
-                r.setTeamMembers(registrationService.getTeamMembers(team.getId()));
+                r.setMembers(registrationService.getTeamMembers(team.getId()));
+                return R.ok(r);
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.error(e.getMessage(), 1);
             }
-            return R.ok();
         });
     }
 
-    @PostMapping("/team-detail/")
-    public R<?> updateTeamDetail(@RequestParam int id, @RequestParam TeamDetail teamDetail, @RequestHeader("Authorization") String token) {
+    @PostMapping("/team-detail")
+    public R<?> updateTeamDetail(@RequestBody TeamDetail teamDetail, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 2, () -> {
             try {
-                assert (id == teamDetail.getId());
-                assert (id == teamService.getTeamByUserId((int) JwtUtils.parseToken(token).get("userId")).getId());
-                Team team = teamService.getTeamById(id);
+                int id = (int) JwtUtils.parseToken(token.substring("Bearer ".length())).get("userId");
+                Team team = teamService.getTeamByUserId(id);
+                if (!(team.getId() == teamDetail.getId())) return R.error("wrongId", 1);
                 team.setName(teamDetail.getName());
                 teamService.updateTeam(team);
                 List<TeamMember> oldMembers = registrationService.getTeamMembers(id);
-                List<TeamMember> newMembers = teamDetail.getTeamMembers();
+                List<TeamMember> newMembers = teamDetail.getMembers();
 
                 Comparator<TeamMember> teamMemberComparator = Comparator
                         .<TeamMember>comparingInt(it -> it.getType().getValue())
@@ -78,39 +78,34 @@ public class LeaderController {
                 );
                 newMembers.sort(teamMemberComparator
                 );
-                int i=oldMembers.size()-1;
-                int j=newMembers.size()-1;
-                while(i>-1&&j>-1)
-                {
-                    if(oldMembers.get(i).equals(newMembers.get(j)))
-                    {
-                        i--;j--;
+                int i = oldMembers.size() - 1;
+                int j = newMembers.size() - 1;
+                while (i > -1 && j > -1) {
+                    if (oldMembers.get(i).equals(newMembers.get(j))) {
+                        i--;
+                        j--;
                         continue;
                     }
                     int compare = teamMemberComparator.compare(oldMembers.get(i), newMembers.get(j));
-                    if(compare>0)
-                    {
-                        registrationService.deleteTeamMember(oldMembers.get(i).getId(),oldMembers.get(i).getType());
+                    if (compare > 0) {
+                        registrationService.deleteTeamMember(oldMembers.get(i).getId(), oldMembers.get(i).getType());
                         i--;
                         continue;
                     }
-                    if(compare < 0)
-                    {
+                    if (compare < 0) {
                         registrationService.addTeamMember(Collections.singletonList(newMembers.get(j)));
                         j--;
                         continue;
                     }
-                    registrationService.updateTeamMember(newMembers.get(j),newMembers.get(j).getType());
+                    registrationService.updateTeamMember(newMembers.get(j), newMembers.get(j).getType());
                     i--;
                     j--;
                 }
-                while(i>-1)
-                {
-                    registrationService.deleteTeamMember(oldMembers.get(i).getId(),oldMembers.get(i).getType());
+                while (i > -1) {
+                    registrationService.deleteTeamMember(oldMembers.get(i).getId(), oldMembers.get(i).getType());
                     i--;
                 }
-                while(j>-1)
-                {
+                while (j > -1) {
                     registrationService.addTeamMember(Collections.singletonList(newMembers.get(j)));
                     j--;
                 }

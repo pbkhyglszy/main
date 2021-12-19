@@ -68,7 +68,7 @@ public class GuestController {
     public R<?> GetTeamDetail(@PathVariable int teamId) {
         Team team = teamService.getTeamById(teamId);
         TeamDetail r= new TeamDetail(team);
-        r.setTeamMembers(registrationService.getTeamMembers(team.getId()));
+        r.setMembers(registrationService.getTeamMembers(team.getId()));
         return R.ok(r);
     }
 }
