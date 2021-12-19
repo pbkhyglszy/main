@@ -16,15 +16,15 @@ public class SystemStatusService {
     RegistrationMapper registrationMapper;
 
     public boolean openRegistration() {
-        if (systemStatusMapper.get() == 0) {
-            systemStatusMapper.update(1);
+        if (systemStatusMapper.get("system_status") == 0) {
+            systemStatusMapper.update("system_status", 1);
             return true;
         } else return false;
     }
 
     public boolean closeRegistration() {
-        if (systemStatusMapper.get() == 1) {
-            systemStatusMapper.update(0);
+        if (systemStatusMapper.get("system_status") == 1) {
+            systemStatusMapper.update("system_status", 2);
             updateAthleteId();
             return true;
         } else return false;

@@ -7,8 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface SystemStatusMapper {
-    int update(int i);
-    int get();
+    int update(String name, int value);
+    int get(String name);
     List<Integer> getMaleAthleteIds();
     List<Integer> getFemaleAthleteIds();
     int updateAthleteId(int id, int athleteId);

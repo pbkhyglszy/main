@@ -3,13 +3,14 @@
 <mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.SystemStatusMapper">
     <update id="update">
         update system_status
-        set registration_in_progress = #{i}
-        where id = 1
+        set value = #{status}
+        where name = #{name}
     </update>
 
     <select id="get" resultType="java.lang.Integer">
-        select registration_in_progress
+        select value
         from system_status
+        where name = #{name}
     </select>
 
     <select id="getMaleAthleteIds" resultType="java.lang.Integer">
