@@ -3,7 +3,6 @@ package com.github.pbkhyglszy.gymnastics_manager.controller;
 import com.github.pbkhyglszy.gymnastics_manager.LoginUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.JwtUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.User;
-import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import com.github.pbkhyglszy.gymnastics_manager.service.LoginService;
 import com.github.pbkhyglszy.gymnastics_manager.service.UserService;
 import com.github.pbkhyglszy.gymnastics_manager.vo.LoginResult;
@@ -14,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.function.Supplier;
 
 @RestController
 public class LoginController {
@@ -34,7 +30,7 @@ public class LoginController {
     public R<?> login(@RequestBody User user) {
 
 
-        Integer userId = loginService.getIdByUsername(user.getUsername());
+        Integer userId = loginService.getIdByUsername(user.getUserName());
         if (userId == null) return R.error("错误的用户名", 101);
         if (loginService.validatePassword(userId, user.getPassword())) {
             HashMap<String, Object> data = new HashMap<>();
@@ -42,10 +38,10 @@ public class LoginController {
             user.setProfession(userService.getProfession(userId));
             user.setPermission(userService.getPermission(userId));
 
-            data.put("userName", user.getUsername());
+            data.put("userName", user.getUserName());
             data.put("permission", userService.getPermission(userId));
             data.put("userType", user.getProfession());
-            return R.ok(new LoginResult(JwtUtils.createToken(data), user.getUsername(), user.getName(), user.getProfession()));
+            return R.ok(new LoginResult(JwtUtils.createToken(data), user.getUserName(), user.getName(), user.getProfession()));
         }
         return R.error("用户名或密码错误", 101);
     }

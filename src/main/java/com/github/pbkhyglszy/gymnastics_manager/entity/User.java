@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class User {
     int id;
-    String username;
+    String userName;
     String password;
     int permission;
     MemberType profession;

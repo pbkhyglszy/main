@@ -16,12 +16,12 @@
     <select id="getIdByUsername" resultType="java.lang.Integer">
         select id
         from user
-        where username = #{username}
+        where username = #{userName}
     </select>
 
     <insert id="createUser" useGeneratedKeys="true" keyProperty="id">
         insert into user (username, password, permission, profession)
-        values (#{username}, #{password}, #{permission}, #{profession})
+        values (#{userName}, #{password}, #{permission}, #{profession})
     </insert>
 
     <delete id="deleteUser">
@@ -32,7 +32,7 @@
 
     <update id="updateUser">
         update user
-        set username = #{username},
+        set username = #{userName},
             password = #{password},
             name     = #{name}
         where id = #{userId}

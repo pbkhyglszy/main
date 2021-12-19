@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class LoginControllerTest {
 
@@ -14,7 +13,7 @@ class LoginControllerTest {
     @Test
     void login() {
         User pb=new User();
-        pb.setUsername("pb");
+        pb.setUserName("pb");
         pb.setPassword("12345678");
         loginController.login(pb);
     }
