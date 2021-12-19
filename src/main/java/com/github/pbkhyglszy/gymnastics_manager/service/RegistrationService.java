@@ -79,7 +79,19 @@ public class RegistrationService {//代表队报名，增删改查
     public int updateTeamMember(TeamMember teamMember, MemberType type) {
         switch (type) {
             case ATHLETE:
-                //TODO:一会再加
+                Athlete athlete = (Athlete) teamMember;
+                registrationMapper.deleteAthleteEvent(athlete.getId());
+                for (int eventId : athlete.getEventIds()
+                ) {
+                    registrationMapper.addAthleteEvent(athlete.getId(), eventId);
+                }
+                registrationMapper.deleteAthleteAC(athlete.getId());
+                List<AgeClass> list = registrationMapper.getAllAgeClass();
+                for (AgeClass ageClass:list
+                ) {
+                    if (athlete.getAge()>= ageClass.getMinAge() && athlete.getAge() <=ageClass.getMaxAge() )
+                        registrationMapper.addAthleteAC(athlete.getId(), ageClass.getId());
+                }
                 return registrationMapper.updateAthlete(teamMember);
             case COACH:
                 return registrationMapper.updateCoach(teamMember);
