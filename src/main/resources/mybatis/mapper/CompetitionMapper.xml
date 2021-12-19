@@ -82,4 +82,15 @@
         select *
         from competition_event
     </select>
+
+    <select id="getAthleteNumber" resultType="java.lang.Integer">
+        select count(id)
+        from athlete
+        where id = (select athlete_id
+                    from athlete_event
+                    where event_id = #{eventId})
+          and id = (select athlete_id
+                    from athlete_age_class
+                    where age_class_id = #{ageClassId})
+    </select>
 </mapper>

@@ -3,12 +3,10 @@ package com.github.pbkhyglszy.gymnastics_manager.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Athlete;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
 import com.github.pbkhyglszy.gymnastics_manager.entity.TeamMember;
 import com.github.pbkhyglszy.gymnastics_manager.enums.Gender;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.GroupMapper;
-import com.github.pbkhyglszy.gymnastics_manager.mapper.RegistrationMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +14,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,7 +69,7 @@ class RegistrationServiceTest {
         List<TeamMember> list = new ArrayList<>();
         list.add(athlete);
         registrationService.addTeamMember(list);
-        assertEquals(1, groupMapper.getAthletesByEvent(2).size());
+        assertEquals(1, groupMapper.getAthletesByCompetition(2).size());
     }
 
     @Test
