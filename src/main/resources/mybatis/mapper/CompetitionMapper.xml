@@ -36,7 +36,7 @@
 
     <insert id="addAgeClass" useGeneratedKeys="true" keyProperty="id">
         insert into competition_age_class (name, min_age, max_age)
-        values (#{ageClassName}, #{minAge}, #{maxAge})
+        values (#{name}, #{minAge}, #{maxAge})
     </insert>
 
     <delete id="deleteAgeClass">
@@ -47,7 +47,7 @@
 
     <update id="updateAgeClass">
         update competition_age_class
-        set name = #{ageClassName},
+        set name = #{name},
             min_age   = #{minAge},
             max_age  = #{maxAge}
         where id = #{id}

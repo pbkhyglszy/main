@@ -2,7 +2,9 @@ package com.github.pbkhyglszy.gymnastics_manager.controller;
 
 import com.github.pbkhyglszy.gymnastics_manager.LoginUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.AgeClass;
+import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Event;
+import com.github.pbkhyglszy.gymnastics_manager.enums.CompetitionType;
 import com.github.pbkhyglszy.gymnastics_manager.service.CompetitionService;
 import com.github.pbkhyglszy.gymnastics_manager.service.GroupService;
 import com.github.pbkhyglszy.gymnastics_manager.service.UserService;
@@ -72,7 +74,7 @@ public class AdminController {
     /**
      * 删一场比赛
      */
-    @DeleteMapping("/admin/event/{eventId}")
+    @DeleteMapping("/admin/events/{eventId}")
     public R<?> deleteEvent(@PathVariable int eventId, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
@@ -88,7 +90,7 @@ public class AdminController {
     /**
      * 编辑一个年龄组
      */
-    @PostMapping("/admin/age-group/{groupId}")
+    @PostMapping("/admin/age-groups/{groupId}")
     public R<?> editAgeGroup(@PathVariable int groupId,@RequestBody AgeClass ageClass, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
@@ -102,12 +104,51 @@ public class AdminController {
         });
     }
 
-    @PostMapping("/admin/age-group/{eventId}")
+    @PostMapping("/admin/events/{eventId}")
     public R<?> editEvent(@PathVariable int eventId, @RequestBody Event event, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
                 assert(event.getId()==eventId);
                 competitionService.updateEvent(event);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+    @PostMapping("/admin/competition")
+    public R<?> addCompetition(@RequestBody Competition competition,@RequestHeader("Authorization") String token){
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                competition.setType(CompetitionType.QUALIFICATION);
+                competitionService.addCompetition(competition);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+    @DeleteMapping("/admin/competitions/{competitionId}")
+    public R<?> deleteCompetition(@PathVariable int competitionId,@RequestHeader("Authorization") String token){
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+
+                competitionService.deleteCompetition(competitionId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+    @PostMapping("/admin/competitions/{competitionId}")
+    public R<?> editCompetition(@PathVariable int competitionId, @RequestBody Competition competition, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                assert(competition.getId()==competitionId);
+                competitionService.updateCompetition(competition);
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.error(e.getMessage(), 1);

@@ -19,5 +19,8 @@ public class UserService {
     {
         return userMapper.getProfession(id);
     }
-    public String getName(int id){return userMapper.getName(id);}
+    public String getName(int id){String ret= userMapper.getName(id);
+        if (ret==null)ret="管理员";
+        return ret;
+    }
 }

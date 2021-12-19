@@ -70,6 +70,8 @@ public class CompetitionService {//录入比赛，增删改查
         return competitionMapper.getAllEvents();
     }
 
-
+    public int getSignedNumber(int eventId,int ageClassId){
+        return competitionMapper.getAthleteNumber(eventId,ageClassId);
+    }
 
 }

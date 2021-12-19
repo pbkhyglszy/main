@@ -39,7 +39,7 @@ public class GuestController {
             {
                 result.put(i.getEventId(), new CompetitionsResult(i));
             }
-            result.get(i.getEventId()).addGroup(new CompetitionsResult.Entry(i));
+            result.get(i.getEventId()).addGroup(new CompetitionsResult.Entry(i,competitionService.getSignedNumber(i.getEventId(), i.getAgeClassId())));
         }
         return R.ok(result.values());
     }
