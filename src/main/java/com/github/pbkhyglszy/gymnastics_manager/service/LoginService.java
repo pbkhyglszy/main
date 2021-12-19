@@ -24,11 +24,11 @@ public class LoginService {
     }
 
     public int setPassword(int id, String password) {
-        return loginMapper.setPassword(id, DigestUtils.md5DigestAsHex((password + salt).getBytes()));
+        return loginMapper.setPassword(id, encodePassword(password));
     }
 
     public boolean validatePassword(int id, String password) {
-        password = DigestUtils.md5DigestAsHex((password + salt).getBytes());
+        password = encodePassword(password);
         String storedPassword = loginMapper.getPassword(id);
         return storedPassword.equals(password);
     }
@@ -47,7 +47,11 @@ public class LoginService {
 
     public int generateUser(User user)
     {
-        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + salt).getBytes()));
+        user.setPassword(encodePassword(user.getPassword()));
         return loginMapper.createUser(user);
+    }
+
+    public String encodePassword(String password) {
+        return DigestUtils.md5DigestAsHex((password + salt).getBytes());
     }
 }
