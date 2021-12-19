@@ -3,7 +3,7 @@
 <mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.SystemStatusMapper">
     <update id="update">
         update system_status
-        set value = #{status}
+        set value = #{value}
         where name = #{name}
     </update>
 

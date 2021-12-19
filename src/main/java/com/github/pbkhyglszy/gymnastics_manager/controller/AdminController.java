@@ -211,6 +211,7 @@ public class AdminController {
                 {
                     return R.error("?", 1);
                 }
+                systemStatusService.setStatus("system_status", systemStatus+finalProgress);
                 if(systemStatus==1)
                 {
                     systemStatusService.closeRegistration();
@@ -219,7 +220,6 @@ public class AdminController {
                 {
                     systemStatusService.openRegistration();
                 }
-                systemStatusService.setStatus("system_status", systemStatus+finalProgress);
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.error(e.getMessage(), 1);
