@@ -1,15 +1,14 @@
 package com.github.pbkhyglszy.gymnastics_manager.controller;
 
+import com.github.pbkhyglszy.gymnastics_manager.LoginUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
 import com.github.pbkhyglszy.gymnastics_manager.service.CompetitionService;
+import com.github.pbkhyglszy.gymnastics_manager.service.SystemStatusService;
 import com.github.pbkhyglszy.gymnastics_manager.service.TeamService;
 import com.github.pbkhyglszy.gymnastics_manager.vo.CompetitionsResult;
 import com.github.pbkhyglszy.gymnastics_manager.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,9 @@ public class GuestController {
 
     @Autowired
     TeamService teamService;
+
+    @Autowired
+    SystemStatusService systemStatusService;
 
     @GetMapping("/all-events")
     public R<?> getAllEvents() {
@@ -51,5 +53,10 @@ public class GuestController {
     public R<?> getAllTeams()
     {
         return R.ok(teamService.getTeams());
+    }
+    @GetMapping("/progress")
+    public R<?> GetProgress()
+    {
+        return R.ok(systemStatusService.getStatus("system_status"));
     }
 }

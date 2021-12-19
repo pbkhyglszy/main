@@ -6,10 +6,7 @@ import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Event;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Team;
 import com.github.pbkhyglszy.gymnastics_manager.enums.CompetitionType;
-import com.github.pbkhyglszy.gymnastics_manager.service.CompetitionService;
-import com.github.pbkhyglszy.gymnastics_manager.service.GroupService;
-import com.github.pbkhyglszy.gymnastics_manager.service.TeamService;
-import com.github.pbkhyglszy.gymnastics_manager.service.UserService;
+import com.github.pbkhyglszy.gymnastics_manager.service.*;
 import com.github.pbkhyglszy.gymnastics_manager.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +24,9 @@ public class AdminController {
 
     @Autowired
     TeamService teamService;
+
+    @Autowired
+    SystemStatusService systemStatusService;
     /**
      *  删除一整个年龄组
      */
@@ -198,6 +198,35 @@ public class AdminController {
             }
             return R.ok();
         });
+    }
+    @PostMapping("/admin/progress")
+    public R<?> updateProgress(@RequestParam int progressDlt, @RequestHeader("Authorization") String token)
+    {
+        if(progressDlt >0) progressDlt = 1;else progressDlt = -1;
+        int finalProgress = progressDlt;
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                int systemStatus=systemStatusService.getStatus("system_status");
+                if(systemStatus+ finalProgress >4||systemStatus+ finalProgress <0)
+                {
+                    return R.error("?", 1);
+                }
+                if(systemStatus==1)
+                {
+                    systemStatusService.closeRegistration();
+                }
+                if(systemStatus+finalProgress==1)
+                {
+                    systemStatusService.openRegistration();
+                }
+                systemStatusService.setStatus("system_status", systemStatus+finalProgress);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+
     }
 //    @PostMapping("/admin/create-account")
 //    public R<?> createAccount(@RequestBody String Token, @RequestBody String username, @RequestBody String password, @RequestBody PermissionType permissionType) {

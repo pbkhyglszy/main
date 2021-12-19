@@ -29,7 +29,14 @@ public class SystemStatusService {
             return true;
         } else return false;
     }
-
+    public int getStatus(String key)
+    {
+        return systemStatusMapper.get(key);
+    }
+    public void setStatus(String key,int status)
+    {
+        systemStatusMapper.update(key,status);
+    }
     private void updateAthleteId() {
         List<Integer> maleAthleteIds = systemStatusMapper.getMaleAthleteIds();
         List<Integer> femaleAthleteIds = systemStatusMapper.getFemaleAthleteIds();
