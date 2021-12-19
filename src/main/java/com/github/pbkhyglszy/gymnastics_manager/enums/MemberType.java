@@ -25,6 +25,6 @@ public enum MemberType {
         return value;
     }
     public static MemberType fromValue(int value) {
-        return VALUES[value];
+        return VALUES[value + 1];
     }
 }
