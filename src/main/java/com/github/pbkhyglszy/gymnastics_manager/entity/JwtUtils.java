@@ -3,11 +3,10 @@ package com.github.pbkhyglszy.gymnastics_manager.entity;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
+
 public class JwtUtils {
 
     /**
@@ -17,7 +16,7 @@ public class JwtUtils {
     /**
      * 过期时间（毫秒单位）
      */
-    private final static long TOKEN_EXPIRE_MILLIS = 1000 * 60 * 60;
+    private final static long TOKEN_EXPIRE_MILLIS = 1000 * 60 * 60 * 24;
 
     /**
      * 创建token
@@ -35,6 +34,7 @@ public class JwtUtils {
 
     /**
      * 验证token
+     *
      * @return 0 验证成功，1过期 2错误3、4、5 验证失败
      */
     public static int verifyToken(String token) {

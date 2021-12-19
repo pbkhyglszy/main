@@ -44,9 +44,22 @@ public class LoginService {
     {
         return loginMapper.getIdByUsername(username);
     }
-
+    private int calcPermission(MemberType type)
+    {
+        switch (type)
+        {
+            case ADMIN:
+                return 1;
+            case REFEREE:
+                return 3;
+            case TEAM_LEADER:
+                return 2;
+        }
+        return 5;
+    }
     public int generateUser(User user)
     {
+        user.setPermission(calcPermission(user.getProfession()));
         user.setPassword(encodePassword(user.getPassword()));
         return loginMapper.createUser(user);
     }
