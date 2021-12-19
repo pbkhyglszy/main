@@ -15,9 +15,8 @@
 
     <update id="modifyCompetitionById">
         update competition
-        set type = #{type},
-            age_class_id   = #{ageClassId},
-            event_id  = #{eventId}
+        set age_class_id = #{ageClassId},
+            event_id     = #{eventId}
         where id = #{id}
     </update>
 
@@ -31,7 +30,6 @@
         from competition
         where id = #{id}
     </select>
-
 
 
     <insert id="addAgeClass" useGeneratedKeys="true" keyProperty="id">
@@ -59,7 +57,6 @@
     </select>
 
 
-
     <insert id="addEvent" useGeneratedKeys="true" keyProperty="id">
         insert into competition_event (event_name, gender)
         values (#{eventName}, #{gender})
@@ -74,7 +71,7 @@
     <update id="updateEvent">
         update competition_event
         set event_name = #{eventName},
-            gender   = #{gender}
+            gender     = #{gender}
         where id = #{id}
     </update>
 
