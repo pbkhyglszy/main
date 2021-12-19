@@ -1,5 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.mapper;
 
+import com.github.pbkhyglszy.gymnastics_manager.entity.User;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -25,5 +26,5 @@ public interface LoginMapper {
      * 将信息直接插入 User表
      */
     //TODO:Mapper
-    void createUser(String userName, String password, String permission, MemberType profession);
+    void createUser(User user);
 }

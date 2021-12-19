@@ -19,4 +19,8 @@
         where username = #{username}
     </select>
 
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="id">
+        insert into user (username, password, permission, profession)
+        values (#{username}, #{password}, #{permission}, #{profession})
+    </insert>
 </mapper>
