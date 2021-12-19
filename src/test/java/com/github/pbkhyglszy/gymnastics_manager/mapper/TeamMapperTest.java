@@ -23,7 +23,7 @@ class TeamMapperTest {
     void getAll() {
         List<Team> all = teamMapper.getAll();
         assertEquals(3, all.size());
-        assertEquals("diyidui", all.get(0).getUserName());
+        assertEquals("diyidui", all.get(0).getUsername());
         assertEquals("第三队", all.get(2).getName());
     }
 
@@ -31,7 +31,7 @@ class TeamMapperTest {
     void add() {
         Team team = new Team();
         team.setName("第四队");
-        team.setUserName("disidui");
+        team.setUsername("disidui");
         team.setPassword("123456");
         teamMapper.add(team);
         assertEquals(4, teamMapper.getAll().size());
@@ -48,7 +48,7 @@ class TeamMapperTest {
         Team team = new Team();
         team.setId(1);
         team.setName("第四队");
-        team.setUserName("disidui");
+        team.setUsername("disidui");
         team.setPassword("123456");
         teamMapper.update(team);
         assertEquals("第四队",teamMapper.getAll().get(0).getName());
