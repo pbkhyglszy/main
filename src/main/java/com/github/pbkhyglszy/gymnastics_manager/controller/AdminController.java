@@ -2,6 +2,7 @@ package com.github.pbkhyglszy.gymnastics_manager.controller;
 
 import com.github.pbkhyglszy.gymnastics_manager.LoginUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.AgeClass;
+import com.github.pbkhyglszy.gymnastics_manager.entity.Event;
 import com.github.pbkhyglszy.gymnastics_manager.service.CompetitionService;
 import com.github.pbkhyglszy.gymnastics_manager.service.GroupService;
 import com.github.pbkhyglszy.gymnastics_manager.service.UserService;
@@ -19,11 +20,15 @@ public class AdminController {
 
     @Autowired
     CompetitionService competitionService;
+
+    /**
+     *  删除一整个年龄组
+     */
     @DeleteMapping("/admin/age-groups/{groupId}")
     public R<?> deleteAgeGroup(@PathVariable int groupId, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
-                int result = groupService.deleteGroup(groupId);
+                competitionService.deleteAgeClass(groupId);
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.error(e.getMessage(), 1);
@@ -32,11 +37,77 @@ public class AdminController {
         });
     }
 
+    /**
+     * 加一个年龄组
+     */
     @PostMapping("/admin/age-group")
     public R<?> addAgeGroup(@RequestBody AgeClass ageClass, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
-                int result = competitionService.addAgeClass(ageClass);
+                competitionService.addAgeClass(ageClass);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+
+    /**
+     * 加一个比赛
+     */
+    @PostMapping("/admin/event")
+    public R<?> addEvent(@RequestBody Event event, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                competitionService.addEvent(event);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+
+    /**
+     * 删一场比赛
+     */
+    @DeleteMapping("/admin/event/{eventId}")
+    public R<?> deleteEvent(@PathVariable int eventId, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                competitionService.deleteEvent(eventId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+
+    /**
+     * 编辑一个年龄组
+     */
+    @PostMapping("/admin/age-group/{groupId}")
+    public R<?> editAgeGroup(@PathVariable int groupId,@RequestBody AgeClass ageClass, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                assert(ageClass.getId()==groupId);
+                competitionService.updateAgeClass(ageClass);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+
+    @PostMapping("/admin/age-group/{eventId}")
+    public R<?> editEvent(@PathVariable int eventId, @RequestBody Event event, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                assert(event.getId()==eventId);
+                competitionService.updateEvent(event);
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.error(e.getMessage(), 1);
