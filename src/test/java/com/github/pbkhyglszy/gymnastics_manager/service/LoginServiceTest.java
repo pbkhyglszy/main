@@ -1,5 +1,7 @@
 package com.github.pbkhyglszy.gymnastics_manager.service;
 
+import com.github.pbkhyglszy.gymnastics_manager.entity.User;
+import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,5 +22,10 @@ class LoginServiceTest {
     void validatePassword() {
         boolean b = loginService.validatePassword(11, "2333");
         assertTrue(b);
+    }
+
+    @Test
+    void generateUser() {
+        loginService.generateUser(new User("pb", "12345678",0 , MemberType.TEAM_LEADER,"pb"));
     }
 }

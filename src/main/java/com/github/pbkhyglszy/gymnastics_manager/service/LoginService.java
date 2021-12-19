@@ -1,5 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.service;
 
+import com.github.pbkhyglszy.gymnastics_manager.entity.User;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.LoginMapper;
 import org.springframework.stereotype.Service;
@@ -42,9 +43,9 @@ public class LoginService {
         return loginMapper.getIdByUsername(username);
     }
 
-    public void generateUser(String userName, String password, String permission, MemberType profession)
+    public void generateUser(User user)
     {
-        password=generatePassword(password);
-        loginMapper.createUser(userName,password,permission,profession);
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + salt).getBytes()));
+        loginMapper.createUser(user);
     }
 }
