@@ -31,8 +31,10 @@ public interface RegistrationMapper {
 
     List<Athlete> getAthlete(int teamId);
     int[] getEventIdsByAthlete(int athleteId);
+    String getAthletePhone(int athleteId);
     List<Coach> getCoach(int teamId);
     List<TeamMember> getReferee(int teamId);
+    String getUsername(int refereeId);
     int getUserId(int refereeId);
     List<TeamMember> getTeamDoctor(int teamId);
     List<TeamMember> getTeamLeader(int teamId);

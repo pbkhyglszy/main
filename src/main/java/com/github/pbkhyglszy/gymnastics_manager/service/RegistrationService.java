@@ -140,12 +140,18 @@ public class RegistrationService {//代表队报名，增删改查
         for (Athlete a:athletes
              ) {
             a.setEventIds(registrationMapper.getEventIdsByAthlete(a.getId()));
+
         }
         teamMembers.addAll(athletes);
 
         teamMembers.addAll(registrationMapper.getCoach(teamId));
 
-        teamMembers.addAll(registrationMapper.getReferee(teamId));
+        List<TeamMember> referees = registrationMapper.getReferee(teamId);
+        for (TeamMember r:referees
+        ) {
+            r.setUserName(registrationMapper.getUsername(r.getId()));
+        }
+        teamMembers.addAll(referees);
 
         teamMembers.addAll(registrationMapper.getTeamDoctor(teamId));
 

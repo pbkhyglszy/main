@@ -3,8 +3,8 @@
 <mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.RegistrationMapper">
 
     <insert id="addAthlete" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into athlete(name, id_number, age, gender, athlete_id, team_id)
-        values (#{name}, #{idNumber}, #{age}, #{gender}, #{athleteId}, #{teamId})
+        insert into athlete(name, id_number, age, gender, athlete_id, team_id, phone)
+        values (#{name}, #{idNumber}, #{age}, #{gender}, #{athleteId}, #{teamId}, #{phone})
     </insert>
 
     <insert id="addCoach" useGeneratedKeys="true" keyProperty="id">
@@ -64,7 +64,8 @@
             age        = #{age},
             gender     = #{gender},
             athlete_id = #{athleteId},
-            team_id    = #{teamId}
+            team_id    = #{teamId},
+            phone = #{phone}
         where id = #{id}
     </update>
 
@@ -161,6 +162,13 @@
         select user_id
         from referee
         where id = #{refereeId}
+    </select>
+    <select id="getUsername" resultType="java.lang.String">
+        select username
+        from user
+        where id = (select user_id
+                    from referee
+                    where id = #{refereeId})
     </select>
 
     <select id="getAllAgeClass" resultType="AgeClass">
