@@ -1,5 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.controller;
 
+import com.github.pbkhyglszy.gymnastics_manager.LoginUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.JwtUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.User;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 @RestController
 public class LoginController {
@@ -42,22 +46,18 @@ public class LoginController {
         }
         return R.error("用户名或密码错误", 101);
     }
+
     @PostMapping("/user-info")
-    public R<?> getUserInfo(String Token) {
-        int result = validateToken(Token);
-        if (result == 1) return R.error("Token过期", 401);
-        if (result != 0) return R.error("错误的Token", 401);
-        return R.ok(JwtUtils.parseToken(Token));
+    public R<?> getUserInfo(String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                return R.ok(JwtUtils.parseToken(token));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+        });
     }
 
-    public int validateToken(String Token) {
-        return JwtUtils.verifyToken(Token);
-    }
 
-    public R<?> validatePermission(String Token, int permission) {
-        int result = validateToken(Token);
-        if (result == 1) return R.error("Token过期", 401);
-
-        return R.ok();
-    }
 }

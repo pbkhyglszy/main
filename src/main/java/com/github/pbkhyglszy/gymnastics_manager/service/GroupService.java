@@ -4,10 +4,12 @@ import com.github.pbkhyglszy.gymnastics_manager.dto.GroupDTO;
 import com.github.pbkhyglszy.gymnastics_manager.entity.*;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.GroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class GroupService {
     @Autowired//赛事编排，分组
     private GroupMapper groupMapper;
