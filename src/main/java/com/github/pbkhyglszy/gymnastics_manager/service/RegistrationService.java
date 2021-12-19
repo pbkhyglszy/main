@@ -21,10 +21,10 @@ public class RegistrationService {//代表队报名，增删改查
                 case ATHLETE:
                     Athlete athlete = (Athlete) teamMember;
                     int result = registrationMapper.addAthlete(athlete);
-                    int i = registrationMapper.getAthleteId(athlete);
+                    //int i = registrationMapper.getAthleteId(athlete);
                     for (int eventId:athlete.getEventIds()
                          ) {
-                        registrationMapper.addAthleteEvent(i, eventId);
+                        registrationMapper.addAthleteEvent(athlete.getId(), eventId);
                     }
                     return result;
                 case COACH:

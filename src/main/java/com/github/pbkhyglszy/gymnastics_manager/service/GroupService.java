@@ -21,15 +21,15 @@ public class GroupService {
     }
 
     public int addGroup(Group group) {
-        return addGroup(group);
+        return groupMapper.addGroup(group);
     }
 
     public int deleteGroup(int groupId) {
-        return deleteGroup(groupId);
+        return groupMapper.deleteGroup(groupId);
     }
 
     public int updateGroup(Group group) {
-        return updateGroup(group);
+        return groupMapper.updateGroup(group);
     }
 
     public List<Group> getGroups(int competitionId) {
