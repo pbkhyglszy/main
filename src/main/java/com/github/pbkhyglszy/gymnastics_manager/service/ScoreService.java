@@ -15,10 +15,21 @@ public class ScoreService {
     @Autowired
     private ScoreMapper scoreMapper;
 
+    /**
+     *
+     * @param refereeScore 裁判打分
+     * @return 成功add的行数
+     */
     public int addRefereeScore(RefereeScore refereeScore) {
         return scoreMapper.add(refereeScore);
     }
 
+    /**
+     *
+     * @param groupId 分组id
+     * @param refereeId 裁判id
+     * @return 如果不存在未通过的裁判打分，返回true；如果存在，删除该打分，返回false
+     */
     public boolean deleteIfNotPass(int groupId, int refereeId) {
         if (getNotPassRSId(groupId, refereeId) == 0) return true;
         else {
@@ -27,6 +38,12 @@ public class ScoreService {
         }
     }
 
+    /**
+     *
+     * @param groupId 分组id
+     * @param refereeId 裁判id
+     * @return 未通过裁判打分
+     */
     @Transactional
     protected int getNotPassRSId(int groupId, int refereeId) {
         if (scoreMapper.getStatus(groupId, refereeId)) return 0;
@@ -39,6 +56,12 @@ public class ScoreService {
         return scoreMapper.getAllRSByGroup(groupId);
     }
 
+    /**
+     *
+     * @param refereeScores 裁判打分
+     * @param groupId 分组id
+     * @return 更新的裁判打分行数；如果group内所有分数的status都通过主裁判审核，算出平均分并add最终成绩
+     */
     @Transactional
     public int auditRefereeScore(List<RefereeScore> refereeScores, int groupId) {
         int n = 0;//总裁判审核，存入FinalScore里
