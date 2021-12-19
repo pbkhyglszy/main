@@ -35,7 +35,7 @@ public class LoginController {
 
 
         Integer userId = loginService.getIdByUsername(user.getUsername());
-        if(userId==null)return R.error("错误的用户名", 1);
+        if(userId==null)return R.error("错误的用户名", 401);
         if(loginService.validatePassword(userId, user.getPassword()))
         {
             HashMap<String, Object> data = new HashMap<>();
@@ -43,11 +43,16 @@ public class LoginController {
             data.put("permission",userService.getPermission(userId));
             return R.ok(JwtUtils.createToken(data));
         }
-        return R.error("用户名或密码错误", 1);
+        return R.error("用户名或密码错误", 401);
     }
 
     public int validateToken(String Token)
     {
         return JwtUtils.verifyToken(Token);
     }
+//    public R<?> validatePermission(String Token,int permission)
+//    {
+//        int result= validateToken(Token);
+//        if(result==)
+//    }
 }

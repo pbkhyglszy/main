@@ -29,17 +29,17 @@ public class JwtUtils {
                 .setIssuedAt(new Date(currentTimeMillis))    // 设置签发时间
                 .setExpiration(new Date(currentTimeMillis + TOKEN_EXPIRE_MILLIS))   // 设置过期时间
                 .addClaims(claimMap)
-                .signWith(generateKey())
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes())
                 .compact();
     }
 
     /**
      * 验证token
-     * @return 0 验证成功，1、2、3、4、5 验证失败
+     * @return 0 验证成功，1过期 2错误3、4、5 验证失败
      */
     public static int verifyToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(generateKey()).build().parseClaimsJws(token);
+            Jwts.parser().setSigningKey(SECRET_KEY.getBytes()).parseClaimsJws(token);
             return 0;
         } catch (ExpiredJwtException e) {
             e.printStackTrace();
@@ -63,17 +63,10 @@ public class JwtUtils {
      * 解析token
      */
     public static Map<String, Object> parseToken(String token) {
-        return Jwts.parserBuilder()  // 得到DefaultJwtParser
-                .setSigningKey(generateKey()) // 设置签名密钥
-                .build()
+        return Jwts.parser()  // 得到DefaultJwtParser
+                .setSigningKey(SECRET_KEY.getBytes()) // 设置签名密钥
                 .parseClaimsJws(token)
                 .getBody();
     }
 
-    /**
-     * 生成安全密钥
-     */
-    public static Key generateKey() {
-        return new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
-    }
 }
