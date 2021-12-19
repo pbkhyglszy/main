@@ -13,4 +13,5 @@ public interface TeamMapper {
     int update(Team team);//改
     int getUserId(int teamId);
     Team getTeamById(int teamId);
+    Team getTeamByUserId(int userId);
 }
