@@ -69,7 +69,7 @@ class RegistrationServiceTest {
         List<TeamMember> list = new ArrayList<>();
         list.add(athlete);
         registrationService.addTeamMember(list);
-        assertEquals(1, groupMapper.getAthletesByCompetition(2).size());
+        assertEquals(1, groupMapper.getAthletesByCompetition(2, 5).size());
     }
 
     @Test

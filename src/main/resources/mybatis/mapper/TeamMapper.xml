@@ -15,8 +15,8 @@
     </select>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        insert into team (team_name, user_id)
-        values (#{name}, #{userId})
+        insert into team (team_name, username, user_id)
+        values (#{name}, #{username}, #{userId})
     </insert>
 
     <delete id="delete">
@@ -27,7 +27,8 @@
 
     <update id="update">
         update team
-        set team_name = #{name}
+        set team_name = #{name},
+            username  = #{username}
         where id = #{id}
     </update>
 

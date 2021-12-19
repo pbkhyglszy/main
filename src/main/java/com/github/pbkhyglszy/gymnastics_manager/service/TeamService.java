@@ -20,7 +20,7 @@ public class TeamService {//设置代表队名称、账号和缺省密码，增�
     public int addTeam(Team team) {
         User user = User.builder()
                 .name(team.getName())
-                .username(team.getUserName())
+                .username(team.getUsername())
                 .password(team.getPassword())
                 .permission(2)
                 .profession(MemberType.TEAM_LEADER)
@@ -38,7 +38,7 @@ public class TeamService {//设置代表队名称、账号和缺省密码，增�
     public int updateTeam(Team team) {
         User user = User.builder()
                 .name(team.getName())
-                .username(team.getUserName())
+                .username(team.getUsername())
                 .password(team.getPassword())
                 .permission(2)
                 .profession(MemberType.TEAM_LEADER)
