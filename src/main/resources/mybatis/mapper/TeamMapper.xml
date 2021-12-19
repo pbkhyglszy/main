@@ -3,7 +3,7 @@
 <mapper namespace="com.github.pbkhyglszy.gymnastics_manager.mapper.TeamMapper">
     <resultMap id="TeamResultMap" type="Team">
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="team_name" jdbcType="VARCHAR" property="teamName"/>
+        <result column="team_name" jdbcType="VARCHAR" property="name"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
     </resultMap>
@@ -16,7 +16,7 @@
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
         insert into team (team_name, user_id)
-        values (#{teamName}, #{userId})
+        values (#{name}, #{userId})
     </insert>
 
     <delete id="delete">
@@ -27,7 +27,7 @@
 
     <update id="update">
         update team
-        set team_name = #{teamName}
+        set team_name = #{name}
         where id = #{id}
     </update>
 

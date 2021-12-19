@@ -6,7 +6,7 @@ public class Team {//代表队
 
     int id;
     int userId;
-    String teamName;
-    String account;
+    String name;
+    String userName;
     String password;
 }

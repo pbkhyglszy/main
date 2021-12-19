@@ -3,11 +3,9 @@ package com.github.pbkhyglszy.gymnastics_manager.service;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Team;
 import com.github.pbkhyglszy.gymnastics_manager.entity.User;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
-import com.github.pbkhyglszy.gymnastics_manager.mapper.LoginMapper;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.TeamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +19,8 @@ public class TeamService {//设置代表队名称、账号和缺省密码，增�
 
     public int addTeam(Team team) {
         User user = User.builder()
-                .name(team.getTeamName())
-                .username(team.getAccount())
+                .name(team.getName())
+                .username(team.getUserName())
                 .password(team.getPassword())
                 .permission(2)
                 .profession(MemberType.TEAM_LEADER)
@@ -39,8 +37,8 @@ public class TeamService {//设置代表队名称、账号和缺省密码，增�
 
     public int updateTeam(Team team) {
         User user = User.builder()
-                .name(team.getTeamName())
-                .username(team.getAccount())
+                .name(team.getName())
+                .username(team.getUserName())
                 .password(team.getPassword())
                 .permission(2)
                 .profession(MemberType.TEAM_LEADER)

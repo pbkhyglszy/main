@@ -4,9 +4,11 @@ import com.github.pbkhyglszy.gymnastics_manager.LoginUtils;
 import com.github.pbkhyglszy.gymnastics_manager.entity.AgeClass;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Event;
+import com.github.pbkhyglszy.gymnastics_manager.entity.Team;
 import com.github.pbkhyglszy.gymnastics_manager.enums.CompetitionType;
 import com.github.pbkhyglszy.gymnastics_manager.service.CompetitionService;
 import com.github.pbkhyglszy.gymnastics_manager.service.GroupService;
+import com.github.pbkhyglszy.gymnastics_manager.service.TeamService;
 import com.github.pbkhyglszy.gymnastics_manager.service.UserService;
 import com.github.pbkhyglszy.gymnastics_manager.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class AdminController {
     @Autowired
     CompetitionService competitionService;
 
+    @Autowired
+    TeamService teamService;
     /**
      *  删除一整个年龄组
      */
@@ -149,6 +153,45 @@ public class AdminController {
             try {
                 assert(competition.getId()==competitionId);
                 competitionService.updateCompetition(competition);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+
+    @PostMapping("/admin/team")
+    public R<?> addTeam(@RequestBody Team team, @RequestHeader("Authorization") String token){
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                teamService.addTeam(team);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+    @DeleteMapping("/admin/teams/{teamId}")
+    public R<?> deleteTeam(@PathVariable int teamId,@RequestHeader("Authorization") String token){
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+
+                teamService.deleteTeam(teamId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+    @PostMapping("/admin/teams/{teamId}")
+    public R<?> editTeam(@PathVariable int teamId, @RequestBody Team team, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                assert(team.getId()==teamId);
+                teamService.updateTeam(team);
             } catch (Exception e) {
                 e.printStackTrace();
                 return R.error(e.getMessage(), 1);

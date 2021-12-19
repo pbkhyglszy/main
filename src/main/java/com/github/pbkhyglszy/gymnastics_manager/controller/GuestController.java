@@ -2,6 +2,7 @@ package com.github.pbkhyglszy.gymnastics_manager.controller;
 
 import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
 import com.github.pbkhyglszy.gymnastics_manager.service.CompetitionService;
+import com.github.pbkhyglszy.gymnastics_manager.service.TeamService;
 import com.github.pbkhyglszy.gymnastics_manager.vo.CompetitionsResult;
 import com.github.pbkhyglszy.gymnastics_manager.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ import java.util.Map;
 public class GuestController {
     @Autowired
     CompetitionService competitionService;
+
+    @Autowired
+    TeamService teamService;
 
     @GetMapping("/all-events")
     public R<?> getAllEvents() {
@@ -42,5 +46,10 @@ public class GuestController {
             result.get(i.getEventId()).addGroup(new CompetitionsResult.Entry(i,competitionService.getSignedNumber(i.getEventId(), i.getAgeClassId())));
         }
         return R.ok(result.values());
+    }
+    @GetMapping("/all-teams")
+    public R<?> getAllTeams()
+    {
+        return R.ok(teamService.getTeams());
     }
 }
