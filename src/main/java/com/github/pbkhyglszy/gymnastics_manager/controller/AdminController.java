@@ -1,15 +1,15 @@
 package com.github.pbkhyglszy.gymnastics_manager.controller;
 
 import com.github.pbkhyglszy.gymnastics_manager.LoginUtils;
-import com.github.pbkhyglszy.gymnastics_manager.entity.AgeClass;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Event;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Team;
+import com.github.pbkhyglszy.gymnastics_manager.entity.*;
 import com.github.pbkhyglszy.gymnastics_manager.enums.CompetitionType;
 import com.github.pbkhyglszy.gymnastics_manager.service.*;
+import com.github.pbkhyglszy.gymnastics_manager.vo.ArrangementGroup;
 import com.github.pbkhyglszy.gymnastics_manager.vo.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AdminController {
@@ -27,8 +27,9 @@ public class AdminController {
 
     @Autowired
     SystemStatusService systemStatusService;
+
     /**
-     *  删除一整个年龄组
+     * 删除一整个年龄组
      */
     @DeleteMapping("/admin/age-groups/{groupId}")
     public R<?> deleteAgeGroup(@PathVariable int groupId, @RequestHeader("Authorization") String token) {
@@ -95,10 +96,10 @@ public class AdminController {
      * 编辑一个年龄组
      */
     @PostMapping("/admin/age-groups/{groupId}")
-    public R<?> editAgeGroup(@PathVariable int groupId,@RequestBody AgeClass ageClass, @RequestHeader("Authorization") String token) {
+    public R<?> editAgeGroup(@PathVariable int groupId, @RequestBody AgeClass ageClass, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
-                assert(ageClass.getId()==groupId);
+                assert (ageClass.getId() == groupId);
                 competitionService.updateAgeClass(ageClass);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -112,7 +113,7 @@ public class AdminController {
     public R<?> editEvent(@PathVariable int eventId, @RequestBody Event event, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
-                assert(event.getId()==eventId);
+                assert (event.getId() == eventId);
                 competitionService.updateEvent(event);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -121,8 +122,9 @@ public class AdminController {
             return R.ok();
         });
     }
+
     @PostMapping("/admin/competition")
-    public R<?> addCompetition(@RequestBody Competition competition,@RequestHeader("Authorization") String token){
+    public R<?> addCompetition(@RequestBody Competition competition, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
                 competition.setType(CompetitionType.QUALIFICATION);
@@ -134,8 +136,9 @@ public class AdminController {
             return R.ok();
         });
     }
+
     @DeleteMapping("/admin/competitions/{competitionId}")
-    public R<?> deleteCompetition(@PathVariable int competitionId,@RequestHeader("Authorization") String token){
+    public R<?> deleteCompetition(@PathVariable int competitionId, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
 
@@ -147,11 +150,12 @@ public class AdminController {
             return R.ok();
         });
     }
+
     @PostMapping("/admin/competitions/{competitionId}")
     public R<?> editCompetition(@PathVariable int competitionId, @RequestBody Competition competition, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
-                assert(competition.getId()==competitionId);
+                assert (competition.getId() == competitionId);
                 competitionService.updateCompetition(competition);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -162,7 +166,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/team")
-    public R<?> addTeam(@RequestBody Team team, @RequestHeader("Authorization") String token){
+    public R<?> addTeam(@RequestBody Team team, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
                 teamService.addTeam(team);
@@ -173,8 +177,9 @@ public class AdminController {
             return R.ok();
         });
     }
+
     @DeleteMapping("/admin/teams/{teamId}")
-    public R<?> deleteTeam(@PathVariable int teamId,@RequestHeader("Authorization") String token){
+    public R<?> deleteTeam(@PathVariable int teamId, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
 
@@ -186,11 +191,12 @@ public class AdminController {
             return R.ok();
         });
     }
+
     @PostMapping("/admin/teams/{teamId}")
     public R<?> editTeam(@PathVariable int teamId, @RequestBody Team team, @RequestHeader("Authorization") String token) {
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
-                assert(team.getId()==teamId);
+                assert (team.getId() == teamId);
                 teamService.updateTeam(team);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -199,25 +205,23 @@ public class AdminController {
             return R.ok();
         });
     }
+
     @PostMapping("/admin/progress")
-    public R<?> updateProgress(@RequestParam int progressDlt, @RequestHeader("Authorization") String token)
-    {
-        if(progressDlt >0) progressDlt = 1;else progressDlt = -1;
+    public R<?> updateProgress(@RequestParam int progressDlt, @RequestHeader("Authorization") String token) {
+        if (progressDlt > 0) progressDlt = 1;
+        else progressDlt = -1;
         int finalProgress = progressDlt;
         return LoginUtils.validatePermission(token, 1, () -> {
             try {
-                int systemStatus=systemStatusService.getStatus("system_status");
-                if(systemStatus+ finalProgress >4||systemStatus+ finalProgress <0)
-                {
+                int systemStatus = systemStatusService.getStatus("system_status");
+                if (systemStatus + finalProgress > 4 || systemStatus + finalProgress < 0) {
                     return R.error("?", 1);
                 }
-                systemStatusService.setStatus("system_status", systemStatus+finalProgress);
-                if(systemStatus==1)
-                {
+                systemStatusService.setStatus("system_status", systemStatus + finalProgress);
+                if (systemStatus == 1) {
                     systemStatusService.closeRegistration();
                 }
-                if(systemStatus+finalProgress==1)
-                {
+                if (systemStatus + finalProgress == 1) {
                     systemStatusService.openRegistration();
                 }
             } catch (Exception e) {
@@ -227,6 +231,56 @@ public class AdminController {
             return R.ok();
         });
 
+    }
+
+    @PostMapping("/admin/competition-group")
+    public R<?> addCompetitionGroup(@RequestParam int competitionId, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                groupService.addGroup(new Group(competitionId));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+
+    @DeleteMapping("/admin/competition-group")
+    public R<?> deleteCompetitionGroup(@RequestParam int groupId, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                groupService.deleteGroup(groupId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
+    }
+
+    @PostMapping("/admin/competitions-groups/{groupId}")
+    public R<?> updateCompetitionGroup(@PathVariable int groupId, @RequestBody List<ArrangementGroup> arrangementGroups, @RequestHeader("Authorization") String token) {
+        return LoginUtils.validatePermission(token, 1, () -> {
+            try {
+                for (ArrangementGroup arrangementGroup:arrangementGroups
+                     ) {
+                    List<Athlete> athletes = groupService.getAthletesByGroup(groupId);
+
+                    groupService.removeAthletesFromGroup(athletes, groupId);
+                    List<TeamMember> referees = groupService.getRefereesByGroup(groupId);
+
+                    groupService.removeRefereesFromGroup(referees, groupId);
+
+                    groupService.addAthletesToGroup(arrangementGroup.getGroupAthletes());
+                    groupService.addRefereesToGroup(arrangementGroup.getGroupReferees());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return R.error(e.getMessage(), 1);
+            }
+            return R.ok();
+        });
     }
 //    @PostMapping("/admin/create-account")
 //    public R<?> createAccount(@RequestBody String Token, @RequestBody String username, @RequestBody String password, @RequestBody PermissionType permissionType) {

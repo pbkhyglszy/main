@@ -69,7 +69,7 @@ public class LeaderController {
                 if (!(team.getId() == teamDetail.getId())) return R.error("wrongId", 1);
                 team.setName(teamDetail.getName());
                 teamService.updateTeam(team);
-                List<TeamMember> oldMembers = registrationService.getTeamMembers(id);
+                List<TeamMember> oldMembers = registrationService.getTeamMembers(teamId);
                 List<TeamMember> newMembers = teamDetail.getMembers();
 
                 Comparator<TeamMember> teamMemberComparator = Comparator

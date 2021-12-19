@@ -53,7 +53,15 @@ public class GroupService {
         }
         return result;
     }
-
+    public int removeAthletesFromGroup(List<Athlete> athletes,int groupId)
+    {
+        int result=0;
+        for (Athlete i:athletes
+             ) {
+            result+=groupMapper.deleteGroupAthlete(groupId, i.getAthleteId());
+        }
+        return result;
+    }
     public List<Athlete> getAthletesByGroup(int groupId) {
         return groupMapper.getAthleteByGroup(groupId);
     }
@@ -75,7 +83,22 @@ public class GroupService {
         }
         return result;
     }
-
+    public int removeRefereesFromGroup(List<TeamMember> referees, int groupId) {
+        int result = 0;
+        for (TeamMember g : referees
+        ) {
+            result += groupMapper.deleteGroupReferee(groupId, g.getId());
+        }
+        return result;
+    }
+    public int addAthleteToGroup(GroupAthlete g)
+    {
+        return groupMapper.addGroupAthlete(g);
+    }
+    public int addRefereeToGroup(GroupReferee g)
+    {
+        return groupMapper.addGroupReferee(g);
+    }
     public List<TeamMember> getRefereesByGroup(int groupId) {
         return groupMapper.getRefereeByGroup(groupId);
     }

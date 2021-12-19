@@ -4,10 +4,10 @@
     <select id="getAthletesByCompetition" resultType="Athlete">
         select *, 0 as 'type'
         from athlete
-        where id = (select athlete_id
+        where id in (select athlete_id
                     from athlete_event
                     where event_id = #{eventId})
-          and id = (select athlete_id
+          and id in (select athlete_id
                     from athlete_age_class
                     where age_class_id = #{ageClassId})
     </select>

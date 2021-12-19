@@ -1,11 +1,10 @@
 package com.github.pbkhyglszy.gymnastics_manager.controller;
 
 import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
+import com.github.pbkhyglszy.gymnastics_manager.entity.Group;
 import com.github.pbkhyglszy.gymnastics_manager.entity.Team;
-import com.github.pbkhyglszy.gymnastics_manager.service.CompetitionService;
-import com.github.pbkhyglszy.gymnastics_manager.service.RegistrationService;
-import com.github.pbkhyglszy.gymnastics_manager.service.SystemStatusService;
-import com.github.pbkhyglszy.gymnastics_manager.service.TeamService;
+import com.github.pbkhyglszy.gymnastics_manager.service.*;
+import com.github.pbkhyglszy.gymnastics_manager.vo.ArrangementGroup;
 import com.github.pbkhyglszy.gymnastics_manager.vo.CompetitionsResult;
 import com.github.pbkhyglszy.gymnastics_manager.vo.R;
 import com.github.pbkhyglszy.gymnastics_manager.vo.TeamDetail;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +31,8 @@ public class GuestController {
     @Autowired
     RegistrationService registrationService;
 
+    @Autowired
+    GroupService groupService ;
     @GetMapping("/all-events")
     public R<?> getAllEvents() {
         return R.ok(competitionService.getEvents());
@@ -60,15 +62,30 @@ public class GuestController {
     }
 
     @GetMapping("/progress")
-    public R<?> GetProgress() {
+    public R<?> getProgress() {
         return R.ok(systemStatusService.getStatus("system_status"));
     }
 
     @GetMapping("/team-detail/{teamId}")
-    public R<?> GetTeamDetail(@PathVariable int teamId) {
+    public R<?> getTeamDetail(@PathVariable int teamId) {
         Team team = teamService.getTeamById(teamId);
         TeamDetail r= new TeamDetail(team);
         r.setMembers(registrationService.getTeamMembers(team.getId()));
         return R.ok(r);
+    }
+    @GetMapping("/competition-groups/{competitionId}")
+    public R<?> getCompetitionGroups(@PathVariable int competitionId)
+    {
+        List<ArrangementGroup> ret= new ArrayList<>();
+        List<Group> groups=groupService.getGroups(competitionId);
+        for (Group i:groups
+             ) {
+            ArrangementGroup t=new ArrangementGroup();
+            t.setGroupId(i.getId());
+            t.setGroupName(i.getGroupName());
+//            t.setAthletes(groupService.));
+            ret.add(t);
+        }
+        return R.ok(ret);
     }
 }

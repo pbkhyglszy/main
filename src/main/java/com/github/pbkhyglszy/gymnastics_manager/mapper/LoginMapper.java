@@ -28,7 +28,7 @@ public interface LoginMapper {
     //TODO:Mapper
     int createUser(User user);
 
-    int deleteUser(int userId);
+    int deleteUser(int id);
 
     int updateUser(User user);
 
