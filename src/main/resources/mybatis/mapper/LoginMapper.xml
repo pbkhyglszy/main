@@ -27,14 +27,14 @@
     <delete id="deleteUser">
         delete
         from user
-        where id = #{userId}
+        where id = #{id}
     </delete>
 
     <update id="updateUser">
         update user
         set username = #{userName},
             name     = #{name}
-        where id = #{userId}
+        where id = #{id}
     </update>
 
     <update id="updateUserPassword">
@@ -42,6 +42,6 @@
         set username = #{userName},
             password = #{password},
             name     = #{name}
-        where id = #{userId}
+        where id = #{id}
     </update>
 </mapper>
