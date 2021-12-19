@@ -74,6 +74,11 @@ public class ScoreService {
         return n;
     }
 
+    /**
+     *
+     * @param groupId 分组id
+     * @return 计算组内所有运动员的平均分，并加入finalscore表
+     */
     @Transactional
     protected int calculateFinalScore(int groupId) {
         int[] athleteIds = scoreMapper.getAllAthleteId(groupId);
