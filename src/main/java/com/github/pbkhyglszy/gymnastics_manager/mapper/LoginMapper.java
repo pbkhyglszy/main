@@ -1,5 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.mapper;
 
+import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -19,4 +20,10 @@ public interface LoginMapper {
      * @return 用户名对应的Id 或Null 若未查找到对应用户
      */
     Integer getIdByUsername(String username);
+
+    /**
+     * 将信息直接插入 User表
+     */
+    //TODO:Mapper
+    void createUser(String userName, String password, String permission, MemberType profession);
 }
