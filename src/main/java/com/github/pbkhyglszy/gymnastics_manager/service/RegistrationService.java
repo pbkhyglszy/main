@@ -66,8 +66,9 @@ public class RegistrationService {//代表队报名，增删改查
             case COACH:
                 return registrationMapper.deleteCoach(teamMemberId);
             case REFEREE:
+                int result = registrationMapper.deleteReferee(teamMemberId);
                 loginService.loginMapper.deleteUser(registrationMapper.getUserId(teamMemberId));
-                return registrationMapper.deleteReferee(teamMemberId);
+                return result;
             case TEAM_DOCTOR:
                 return registrationMapper.deleteTeamDoctor(teamMemberId);
             case TEAM_LEADER:
