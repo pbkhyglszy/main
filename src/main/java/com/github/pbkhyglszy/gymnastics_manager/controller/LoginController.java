@@ -41,6 +41,7 @@ public class LoginController {
             data.put("userName", user.getUserName());
             data.put("permission", userService.getPermission(userId));
             data.put("userType", user.getProfession());
+            data.put("userid",user.getId());
             return R.ok(new LoginResult(JwtUtils.createToken(data), user.getUserName(), user.getName(), user.getProfession()));
         }
         return R.error("用户名或密码错误", 101);

@@ -6,6 +6,7 @@ import com.github.pbkhyglszy.gymnastics_manager.enums.Gender;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -24,6 +25,7 @@ import lombok.experimental.SuperBuilder;
         @JsonSubTypes.Type(value = Athlete.class, name = "athlete"),
         @JsonSubTypes.Type(value = Coach.class, name = "coach"),
 })
+@EqualsAndHashCode
 public class TeamMember {
     int id;
     int teamId;

@@ -17,7 +17,7 @@ public class LoginUtils {
         if (result == 1) return R.error("Token过期", 401);
         if (result != 0) return R.error("错误的Token", 401);
         Map<String, Object> parse = JwtUtils.parseToken(token);
-        if ((int) parse.get("permission") > permission) return R.error("无权限！", 70);
+        if ((int) parse.get("permission") != permission) return R.error("无权限！", 70);
 
         return action.get();
     }

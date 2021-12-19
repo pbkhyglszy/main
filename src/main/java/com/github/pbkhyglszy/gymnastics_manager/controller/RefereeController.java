@@ -26,10 +26,10 @@ public class RefereeController {
 
     @Autowired
     SystemStatusService systemStatusService;
-    @PostMapping("/qaq")
+    @PostMapping("/qaq2")
     public R<?> testFunc(@RequestHeader("Authorization") String token)
     {
-        return LoginUtils.validatePermission(token, 2, () -> {
+        return LoginUtils.validatePermission(token, 3, () -> {
             try {
 
             } catch (Exception e) {
