@@ -3,9 +3,10 @@ package com.github.pbkhyglszy.gymnastics_manager.controller;
 import com.github.pbkhyglszy.gymnastics_manager.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class LoginControllerTest {
 
     @Autowired
