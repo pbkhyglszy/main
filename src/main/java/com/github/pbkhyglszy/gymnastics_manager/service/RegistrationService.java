@@ -1,9 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.service;
 
-import com.github.pbkhyglszy.gymnastics_manager.entity.Athlete;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Coach;
-import com.github.pbkhyglszy.gymnastics_manager.entity.TeamMember;
-import com.github.pbkhyglszy.gymnastics_manager.entity.User;
+import com.github.pbkhyglszy.gymnastics_manager.entity.*;
 import com.github.pbkhyglszy.gymnastics_manager.enums.MemberType;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.RegistrationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,12 @@ public class RegistrationService {//代表队报名，增删改查
                     ) {
                         registrationMapper.addAthleteEvent(athlete.getId(), eventId);
                     }
+                    List<AgeClass> list = registrationMapper.getAllAgeClass();
+                    for (AgeClass ageClass:list
+                         ) {
+                        if (athlete.getAge()>= ageClass.getMinAge() && athlete.getAge() <=ageClass.getMaxAge() )
+                            registrationMapper.addAthleteAC(athlete.getId(), ageClass.getId());
+                    }
                     return result;
                 case COACH:
                     return registrationMapper.addCoach((Coach) teamMember);
@@ -57,6 +60,8 @@ public class RegistrationService {//代表队报名，增删改查
     public int deleteTeamMember(int teamMemberId, MemberType type) {
         switch (type) {
             case ATHLETE:
+                registrationMapper.deleteAthleteAC(teamMemberId);
+                registrationMapper.deleteAthleteEvent(teamMemberId);
                 return registrationMapper.deleteAthlete(teamMemberId);
             case COACH:
                 return registrationMapper.deleteCoach(teamMemberId);
@@ -74,6 +79,7 @@ public class RegistrationService {//代表队报名，增删改查
     public int updateTeamMember(TeamMember teamMember, MemberType type) {
         switch (type) {
             case ATHLETE:
+                //TODO:一会再加
                 return registrationMapper.updateAthlete(teamMember);
             case COACH:
                 return registrationMapper.updateCoach(teamMember);

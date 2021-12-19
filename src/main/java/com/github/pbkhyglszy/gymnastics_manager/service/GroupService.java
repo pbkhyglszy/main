@@ -1,12 +1,10 @@
 package com.github.pbkhyglszy.gymnastics_manager.service;
 
-import com.github.pbkhyglszy.gymnastics_manager.dto.GroupDTO;
 import com.github.pbkhyglszy.gymnastics_manager.entity.*;
 import com.github.pbkhyglszy.gymnastics_manager.mapper.GroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -14,8 +12,8 @@ public class GroupService {
     @Autowired//赛事编排，分组
     private GroupMapper groupMapper;
 
-    public List<Athlete> getAthletes(int eventId) {//返回所有报名该比赛的运动员
-        return groupMapper.getAthletesByEvent(eventId);
+    public List<Athlete> getAthletes(int eventId, int ageClassId) {//返回所有报名该比赛的运动员
+        return groupMapper.getAthletesByCompetition(eventId, ageClassId);
     }
 
     public List<TeamMember> getReferees() {

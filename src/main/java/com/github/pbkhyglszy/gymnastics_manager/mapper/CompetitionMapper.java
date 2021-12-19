@@ -31,4 +31,6 @@ public interface CompetitionMapper {
     int deleteEvent(int id);
     int updateEvent(Event event);
     List<Event> getAllEvents();
+
+    int getAthleteNumber(int eventId, int ageClassId);
 }

@@ -70,4 +70,6 @@ public class CompetitionService {//录入比赛，增删改查
         return competitionMapper.getAllEvents();
     }
 
+
+
 }

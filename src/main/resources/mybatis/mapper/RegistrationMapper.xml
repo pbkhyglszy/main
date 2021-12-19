@@ -138,13 +138,34 @@
 
     <insert id="addAthleteEvent" useGeneratedKeys="true" keyProperty="id">
         insert into athlete_event (athlete_id, event_id)
-        values (#{athlete_id}, #{event_id})
+        values (#{athleteId}, #{eventId})
     </insert>
+    <delete id="deleteAthleteEvent">
+        delete
+        from athlete_event
+        where athlete_id = #{id}
+    </delete>
+
+
+    <insert id="addAthleteAC" useGeneratedKeys="true" keyProperty="id">
+        insert into athlete_age_class (athlete_id, age_class_id)
+        values (#{athleteId}, #{ageClassId})
+    </insert>
+    <delete id="deleteAthleteAC">
+        delete
+        from athlete_age_class
+        where athlete_id = #{id}
+    </delete>
 
     <select id="getUserId" resultType="java.lang.Integer">
         select user_id
         from referee
         where id = #{refereeId}
+    </select>
+
+    <select id="getAllAgeClass" resultType="AgeClass">
+        select *
+        from competition_age_class
     </select>
 
 </mapper>

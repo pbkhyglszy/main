@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface GroupMapper {
-    List<Athlete> getAthletesByEvent(int eventId);
+    List<Athlete> getAthletesByCompetition(int eventId, int ageClassId);
 
     List<TeamMember> getReferees();
 
