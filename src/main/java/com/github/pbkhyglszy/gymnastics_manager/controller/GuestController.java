@@ -1,8 +1,6 @@
 package com.github.pbkhyglszy.gymnastics_manager.controller;
 
-import com.github.pbkhyglszy.gymnastics_manager.entity.Competition;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Group;
-import com.github.pbkhyglszy.gymnastics_manager.entity.Team;
+import com.github.pbkhyglszy.gymnastics_manager.entity.*;
 import com.github.pbkhyglszy.gymnastics_manager.service.*;
 import com.github.pbkhyglszy.gymnastics_manager.vo.ArrangementGroup;
 import com.github.pbkhyglszy.gymnastics_manager.vo.CompetitionsResult;
@@ -83,6 +81,16 @@ public class GuestController {
             ArrangementGroup t=new ArrangementGroup();
             t.setGroupId(i.getId());
             t.setGroupName(i.getGroupName());
+            List<Athlete> athletesByGroup = groupService.getAthletesByGroup(i.getId());
+            for (Athlete it1:athletesByGroup
+                 ) {
+                t.addAthletes(it1);
+            }
+            List<TeamMember> refereesByGroup = groupService.getRefereesByGroup(i.getId());
+            for (TeamMember it2:refereesByGroup
+                 ) {
+                t.addReferee(it2);
+            }
 //            t.setAthletes(groupService.));
             ret.add(t);
         }
